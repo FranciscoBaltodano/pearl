@@ -1,5 +1,6 @@
 "use client";
 
+// import {getTranslations} from 'next-intl/server';
 import { Button } from '@/components/ui/button';
 import {
   MapPin,
@@ -21,9 +22,10 @@ import Lugares from './lugares';
 import Beneficios from './beneficios';
 import Navbar from './navbar';
 import Ayuda from './ayuda';
+import { useTranslations } from 'next-intl';
 
 export default function LandingPage() {
-
+  const t = useTranslations('Landing');
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#d6ecd2] via-white to-[#d6ecd2]">
       <Navbar/>
@@ -33,11 +35,11 @@ export default function LandingPage() {
           <div className="text-center">
             <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-[#d6ecd2] to-white backdrop-blur-sm border border-[#3f7ade]/20 rounded-full px-6 py-3 mb-8 shadow-lg animate-bounce">
               <Sparkles className="w-5 h-5 text-[#3f7ade]" />
-              <span className="text-sm font-semibold text-[#18428c]">Potenciado por Inteligencia Artificial Avanzada</span>
+              <span className="text-sm font-semibold text-[#18428c]">{t('title')}</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-[#18428c] mb-8 leading-tight">
-              Viajes Únicos con
+              {t('subtitle')}
               <span className="bg-gradient-to-r from-[#3f7ade] to-[#18428c] bg-clip-text text-transparent block mt-2 animate-pulse"> Inteligencia Artificial</span>
             </h1>
             

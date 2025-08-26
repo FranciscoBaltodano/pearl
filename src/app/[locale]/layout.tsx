@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 
 import "../globals.css";
 import { routing } from "@/i18n/routing";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,8 +26,7 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  // params: Promise<{locale: string}>;
-  params: { locale: string; [key: string]: string };
+  params: Promise<{ locale: string }>;
 }>) {
   // Ensure that the incoming `locale` is valid
   const { locale } = await params;

@@ -45,7 +45,7 @@ export default function Beneficios() {
     return () => {
       clearInterval(featureInterval);
     };
-  }, []);
+  }, [features.length]);
 
   return (
     <div>

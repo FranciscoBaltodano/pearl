@@ -9,7 +9,7 @@
 //     system:
 //       'You are a professional writer. ' +
 //       'You write simple, clear, and concise content.',
-//     prompt: "Dame una receta de espagettis",
+//     prompt: "Dame una receta de chocoflan",
 //     schema: z.object({
 //         name: z.string(),
 //         ingredients: z.array(z.string()),
@@ -42,13 +42,27 @@
 'use client';
 
 import { useState } from 'react';
-import { generateObject } from 'ai';
-import { z } from 'zod';
-import { google } from '@ai-sdk/google';
 import { MapPin, Calendar, Star } from 'lucide-react';
 
-export default function TourismGenerator() {
+// Tipos
+interface SelectedTags {
+  destination: string;
+  activities: string[];
+  duration: string;
+  budget: string;
+  travelers: string;
+}
 
+interface Recommendation {
+  destinoRecomendado: string;
+  descripcion: string;
+  actividades: string[];
+  consejosPracticos: string[];
+  mejorEpoca: string;
+  presupuestoEstimado: string;
+}
+
+export default function TourismGenerator() {
   const [selectedTags, setSelectedTags] = useState<SelectedTags>({
     destination: '',
     activities: [],
@@ -102,32 +116,20 @@ export default function TourismGenerator() {
     setIsLoading(true);
     
     try {
-      const prompt = `Genera una recomendación de viaje personalizada con estas preferencias:
-        - Tipo de destino: ${selectedTags.destination}
-        - Actividades preferidas: ${selectedTags.activities.join(', ')}
-        - Duración: ${selectedTags.duration}
-        - Presupuesto: ${selectedTags.budget}
-        - Tipo de viajero: ${selectedTags.travelers}
-        
-        Incluye un destino específico, actividades detalladas y consejos prácticos.`;
-
-      const { object } = await generateObject({
-        model: google('gemini-2.5-pro'),
-        system: 'Eres un experto consultor de viajes. Generas recomendaciones personalizadas, específicas y prácticas para turistas. Incluye destinos reales y consejos útiles.',
-        prompt: prompt,
-        schema: z.object({
-          destinoRecomendado: z.string(),
-          descripcion: z.string(),
-          actividades: z.array(z.string()),
-          consejosPracticos: z.array(z.string()),
-          mejorEpoca: z.string(),
-          presupuestoEstimado: z.string()
-        }),
+      const response = await fetch('/api/generate-travel', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ selectedTags }),
       });
 
-  
+      if (!response.ok) {
+        throw new Error('Error en la respuesta del servidor');
+      }
 
-      setRecommendation(object);
+      const data = await response.json();
+      setRecommendation(data.recommendation);
     } catch (error) {
       console.error('Error generating recommendation:', error);
       alert('Error al generar la recomendación. Por favor intenta de nuevo.');

@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import type React from "react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Mountain,
   Waves,
@@ -24,14 +24,14 @@ import {
   Star,
   Check,
   ArrowRight,
-} from "lucide-react"
+} from "lucide-react";
 
 interface Activity {
-  id: string
-  name: string
-  icon: React.ReactNode
-  description: string
-  category: string
+  id: string;
+  name: string;
+  icon: React.ReactNode;
+  description: string;
+  category: string;
 }
 
 const activities: Activity[] = [
@@ -147,44 +147,52 @@ const activities: Activity[] = [
     description: "Lujo y exclusividad",
     category: "Premium",
   },
-]
+];
 
 export default function ActivitySelection() {
-  const [selectedActivities, setSelectedActivities] = useState<string[]>([])
+  const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
 
   const toggleActivity = (activityId: string) => {
     setSelectedActivities((prev) =>
-      prev.includes(activityId) ? prev.filter((id) => id !== activityId) : [...prev, activityId],
-    )
-  }
+      prev.includes(activityId)
+        ? prev.filter((id) => id !== activityId)
+        : [...prev, activityId]
+    );
+  };
 
   const handleContinue = () => {
     if (selectedActivities.length > 0) {
-      console.log("Actividades seleccionadas:", selectedActivities)
+      console.log("Actividades seleccionadas:", selectedActivities);
       // Aquí iría la navegación a la página de recomendaciones
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary-800 via-secondary to-accent">
       {/* Header */}
       <div className="px-4 pt-8 pb-6">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-white mb-3 leading-tight">¿Qué te gusta hacer en vacaciones?</h1>
-          <p className="text-light text-lg">Selecciona todas las actividades que disfrutas</p>
+          <h1 className="text-3xl font-bold text-white mb-3 leading-tight">
+            ¿Qué te gusta hacer en vacaciones?
+          </h1>
+          <p className="text-light text-lg">
+            Selecciona todas las actividades que disfrutas
+          </p>
         </div>
       </div>
 
       {/* Activities List */}
       <div className="px-4 pb-32">
         <div className="space-y-3">
-          {activities.map((activity, index) => {
-            const isSelected = selectedActivities.includes(activity.id)
+          {activities.map((activity) => {
+            const isSelected = selectedActivities.includes(activity.id);
             return (
               <Card
                 key={activity.id}
                 className={`cursor-pointer transition-all duration-300 active:scale-95 ${
-                  isSelected ? "bg-white shadow-lg ring-2 ring-white/50" : "bg-white/90 hover:bg-white shadow-md"
+                  isSelected
+                    ? "bg-white shadow-lg ring-2 ring-white/50"
+                    : "bg-white/90 hover:bg-white shadow-md"
                 }`}
                 onClick={() => toggleActivity(activity.id)}
               >
@@ -193,7 +201,9 @@ export default function ActivitySelection() {
                     {/* Icon */}
                     <div
                       className={`flex-shrink-0 p-3 rounded-full transition-colors ${
-                        isSelected ? "bg-primary-800 text-white" : "bg-accent text-white"
+                        isSelected
+                          ? "bg-primary-800 text-white"
+                          : "bg-accent text-white"
                       }`}
                     >
                       {activity.icon}
@@ -202,14 +212,18 @@ export default function ActivitySelection() {
                     {/* Content */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1">
-                        <h3 className="text-lg font-semibold text-primary-800 truncate">{activity.name}</h3>
+                        <h3 className="text-lg font-semibold text-primary-800 truncate">
+                          {activity.name}
+                        </h3>
                         {isSelected && (
                           <div className="flex-shrink-0 w-6 h-6 bg-primary-800 rounded-full flex items-center justify-center">
                             <Check className="w-4 h-4 text-white" />
                           </div>
                         )}
                       </div>
-                      <p className="text-gray-600 text-sm mb-2">{activity.description}</p>
+                      <p className="text-gray-600 text-sm mb-2">
+                        {activity.description}
+                      </p>
                       <Badge variant="secondary" className="text-xs">
                         {activity.category}
                       </Badge>
@@ -217,7 +231,7 @@ export default function ActivitySelection() {
                   </div>
                 </CardContent>
               </Card>
-            )
+            );
           })}
         </div>
       </div>
@@ -227,17 +241,22 @@ export default function ActivitySelection() {
         {selectedActivities.length > 0 && (
           <div className="mb-3">
             <p className="text-center text-sm text-gray-600 mb-2">
-              {selectedActivities.length} actividad{selectedActivities.length !== 1 ? "es" : ""} seleccionada
+              {selectedActivities.length} actividad
+              {selectedActivities.length !== 1 ? "es" : ""} seleccionada
               {selectedActivities.length !== 1 ? "s" : ""}
             </p>
             <div className="flex flex-wrap justify-center gap-1 max-h-16 overflow-y-auto">
               {selectedActivities.slice(0, 6).map((activityId) => {
-                const activity = activities.find((a) => a.id === activityId)
+                const activity = activities.find((a) => a.id === activityId);
                 return activity ? (
-                  <Badge key={activityId} variant="default" className="bg-primary-800 text-white text-xs">
+                  <Badge
+                    key={activityId}
+                    variant="default"
+                    className="bg-primary-800 text-white text-xs"
+                  >
                     {activity.name}
                   </Badge>
-                ) : null
+                ) : null;
               })}
               {selectedActivities.length > 6 && (
                 <Badge variant="outline" className="text-xs">
@@ -265,5 +284,5 @@ export default function ActivitySelection() {
         </Button>
       </div>
     </div>
-  )
+  );
 }

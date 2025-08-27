@@ -3,5 +3,18 @@
     "title": "Hola Papus!",
     "about": "Ir a la página de información",
     "subtitle": "Viajes Únicos con"
-  }
+  },
+
+  "navbar": {
+      "home": "Inicio",
+      "features": "Características",
+      "destinations": "Destinos",
+      "how-it-works": "Cómo Funciona",
+      "testimonials": "Testimonios",
+      "login": "Iniciar Sesión",
+      "start-free": "Comenzar Gratis",
+      "language": "Idioma"
+    }
 }
+
+

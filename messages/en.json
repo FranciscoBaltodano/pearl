@@ -3,5 +3,15 @@
         "title": "Hello world!",
         "about": "Go to the about page",
         "subtitle": "Travels Unique with"
-    }
+    },
+    "navbar": {
+        "home": "Home",
+        "features": "Features",
+        "destinations": "Destinations",
+        "how-it-works": "How It Works",
+        "testimonials": "Testimonials",
+        "login": "Login",
+        "start-free": "Start Free",
+        "language": "Language"
+  }
 }

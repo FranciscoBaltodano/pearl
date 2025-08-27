@@ -1,7 +1,108 @@
 {
   "Landing": {
     "title": "Hola Papus!",
-    "about": "Ir a la página de información",
-    "subtitle": "Viajes Únicos con"
+    "subtitle": "Viajes Únicos con",
+    "ai": "Inteligencia Artificial",
+    "description": "Descubre destinos extraordinarios adaptados perfectamente a tus gustos, presupuesto y sueños. Nuestro asistente de IA revoluciona la forma de planificar aventuras inolvidables.",
+    "planButton": "Planificar Mi Viaje Ahora",
+    "demoButton": "Ver Demo Interactiva",
+    "stats": {
+      "travelers": "Viajeros Felices",
+      "destinations": "Destinos Únicos",
+      "satisfaction": "Satisfacción",
+      "support": "Soporte Global"
+    }
+  },
+  "Beneficios": {
+    "title": "Características que Nos Hacen Únicos",
+    "features": {
+      "ia": {
+        "title": "IA Avanzada",
+        "description": "Algoritmos de machine learning que aprenden de tus preferencias para sugerencias cada vez más precisas y personalizadas.",
+        "details": "Procesamos más de 50 millones de datos de viaje diariamente"
+      },
+      "global": {
+        "title": "Destinos Globales",
+        "description": "Acceso a más de 15,000 destinos en todo el mundo con información actualizada en tiempo real y reseñas verificadas.",
+        "details": "Cobertura en 195 países con datos locales actualizados"
+      },
+      "instant": {
+        "title": "Planificación Instantánea",
+        "description": "Genera itinerarios completos en segundos, optimizados para tu tiempo, presupuesto y preferencias específicas.",
+        "details": "Respuesta promedio de 3.2 segundos para itinerarios completos"
+      },
+      "safe": {
+        "title": "Viajes Seguros",
+        "description": "Monitoreo 24/7 de condiciones de seguridad, alertas en tiempo real y asistencia de emergencia global.",
+        "details": "Red de soporte en más de 100 países"
+      }
+    }
+  },
+  "Lugares": {
+    "badge": "Destinos Populares",
+    "title": "Explora el Mundo con IA",
+    "description": "Descubre destinos únicos seleccionados por nuestra IA según tus preferencias y sueños de viaje.",
+    "exploreButton": "Explorar",
+    "destinations": {
+      "tokyo": {
+        "name": "Tokio, Japón",
+        "description": "Tecnología, cultura tradicional y gastronomía única",
+        "price": "Desde $1,200",
+        "duration": "7-14 días",
+        "category": "Cultura"
+      },
+      "santorini": {
+        "name": "Santorini, Grecia",
+        "description": "Atardeceres mágicos y arquitectura cicládica",
+        "price": "Desde $800",
+        "duration": "5-10 días",
+        "category": "Romance"
+      },
+      "machu": {
+        "name": "Machu Picchu, Perú",
+        "description": "Historia ancestral y paisajes montañosos",
+        "price": "Desde $600",
+        "duration": "4-8 días",
+        "category": "Aventura"
+      },
+      "maldives": {
+        "name": "Maldivas",
+        "description": "Paraíso tropical con aguas cristalinas",
+        "price": "Desde $2,000",
+        "duration": "5-12 días",
+        "category": "Lujo"
+      },
+      "iceland": {
+        "name": "Islandia",
+        "description": "Auroras boreales y paisajes volcánicos",
+        "price": "Desde $1,500",
+        "duration": "6-10 días",
+        "category": "Naturaleza"
+      }
+    }
+  }, "Categorias": {
+    "title": "Viaja Según Tu Estilo",
+    "subtitle": "Nuestra IA se adapta a cualquier tipo de aventura que busques",
+    "categories": {
+      "adventure": { "title": "Aventura", "description": "Montañismo, trekking y deportes extremos" },
+      "urban": { "title": "Urbano", "description": "Ciudades, cultura y vida nocturna" },
+      "beach": { "title": "Playa", "description": "Sol, arena y deportes acuáticos" },
+      "nature": { "title": "Naturaleza", "description": "Bosques, parques y vida silvestre" },
+      "food": { "title": "Gastronómico", "description": "Sabores locales y experiencias culinarias" },
+      "photo": { "title": "Fotográfico", "description": "Paisajes únicos para capturar" },
+      "romantic": { "title": "Romántico", "description": "Escapadas perfectas en pareja" },
+      "business": { "title": "Negocios", "description": "Combina trabajo con experiencias locales" }
+    }
+  },
+  "Procesos": {
+    "badge": "Proceso Inteligente",
+    "title": "Cuatro Pasos hacia tu Aventura Perfecta",
+    "subtitle": "Nuestro proceso optimizado por IA hace que planificar viajes sea más fácil que nunca",
+    "steps": {
+      "share": { "title": "Comparte tus Sueños", "description": "Cuéntanos sobre tus gustos, presupuesto, fechas y el tipo de experiencia que buscas vivir." },
+      "ai": { "title": "IA Analiza y Crea", "description": "Nuestro asistente procesa millones de datos para diseñar el viaje perfecto y único para ti." },
+      "customize": { "title": "Personalización Total", "description": "Ajusta cada detalle de tu itinerario con sugerencias inteligentes y opciones flexibles." },
+      "travel": { "title": "Viaja y Disfruta", "description": "Vive experiencias únicas con soporte 24/7 y actualizaciones en tiempo real durante tu viaje." }
+    }
   }
 }

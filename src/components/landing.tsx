@@ -1,6 +1,5 @@
 "use client";
 
-// import {getTranslations} from 'next-intl/server';
 import { Button } from '@/components/ui/button';
 import {
   MapPin,
@@ -40,12 +39,11 @@ export default function LandingPage() {
             
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-[#18428c] mb-8 leading-tight">
               {t('subtitle')}
-              <span className="bg-gradient-to-r from-[#3f7ade] to-[#18428c] bg-clip-text text-transparent block mt-2 animate-pulse"> Inteligencia Artificial</span>
+              <span className="bg-gradient-to-r from-[#3f7ade] to-[#18428c] bg-clip-text text-transparent block mt-2 animate-pulse"> {t('ai')}</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-[#18428c]/80 mb-12 max-w-4xl mx-auto leading-relaxed">
-              Descubre destinos extraordinarios adaptados perfectamente a tus gustos, presupuesto y sueños. 
-              Nuestro asistente de IA revoluciona la forma de planificar aventuras inolvidables.
+              {t('description')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
@@ -54,7 +52,7 @@ export default function LandingPage() {
                 className="bg-gradient-to-r from-[#3f7ade] to-[#18428c] hover:from-[#18428c] hover:to-[#3f7ade] text-white text-xl px-12 py-6 h-auto group shadow-2xl transform hover:scale-105 transition-all duration-300"
               >
                 <Play className="w-6 h-6 mr-3" />
-                Planificar Mi Viaje Ahora
+                {t('planButton')}
                 <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform" />
               </Button>
               <Button 
@@ -63,17 +61,17 @@ export default function LandingPage() {
                 className="border-2 border-[#3f7ade] text-[#3f7ade] hover:bg-[#3f7ade] hover:text-white text-xl px-12 py-6 h-auto transform hover:scale-105 transition-all duration-300"
               >
                 <Camera className="w-6 h-6 mr-3" />
-                Ver Demo Interactiva
+                {t('demoButton')}
               </Button>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
               {[
-                { number: "50K+", label: "Viajeros Felices", icon: Users },
-                { number: "15K+", label: "Destinos Únicos", icon: MapPin },
-                { number: "98%", label: "Satisfacción", icon: Heart },
-                { number: "24/7", label: "Soporte Global", icon: Headphones }
+                { number: "50K+", label: t('stats.travelers'), icon: Users },
+                { number: "15K+", label: t('stats.destinations'), icon: MapPin },
+                { number: "98%", label: t('stats.satisfaction'), icon: Heart },
+                { number: "24/7", label: t('stats.support'), icon: Headphones }
               ].map((stat, index) => (
                 <div key={index} className="text-center group">
                   <div className="w-16 h-16 bg-gradient-to-r from-[#3f7ade] to-[#18428c] rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform shadow-lg">

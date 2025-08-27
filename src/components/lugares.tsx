@@ -3,66 +3,69 @@
 import { ArrowRight, Badge, Clock, DollarSign } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
+import { useTranslations } from "next-intl";
 
 export default function Lugares() {
+  const t = useTranslations("Lugares");
   const [currentDestination, setCurrentDestination] = useState(0);
+
   const destinations = [
     {
-      name: "Tokio, Japón",
+      name: t("destinations.tokyo.name"),
       image:
         "https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2",
-      description: "Tecnología, cultura tradicional y gastronomía única",
-      price: "Desde $1,200",
-      duration: "7-14 días",
-      category: "Cultura",
+      description: t("destinations.tokyo.description"),
+      price: t("destinations.tokyo.price"),
+      duration: t("destinations.tokyo.duration"),
+      category: t("destinations.tokyo.category"),
     },
     {
-      name: "Santorini, Grecia",
+      name: t("destinations.santorini.name"),
       image:
         "https://images.pexels.com/photos/1285625/pexels-photo-1285625.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2",
-      description: "Atardeceres mágicos y arquitectura cicládica",
-      price: "Desde $800",
-      duration: "5-10 días",
-      category: "Romance",
+      description: t("destinations.santorini.description"),
+      price: t("destinations.santorini.price"),
+      duration: t("destinations.santorini.duration"),
+      category: t("destinations.santorini.category"),
     },
     {
-      name: "Machu Picchu, Perú",
+      name: t("destinations.machu.name"),
       image:
         "https://images.pexels.com/photos/2356045/pexels-photo-2356045.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2",
-      description: "Historia ancestral y paisajes montañosos",
-      price: "Desde $600",
-      duration: "4-8 días",
-      category: "Aventura",
+      description: t("destinations.machu.description"),
+      price: t("destinations.machu.price"),
+      duration: t("destinations.machu.duration"),
+      category: t("destinations.machu.category"),
     },
     {
-      name: "Maldivas",
+      name: t("destinations.maldives.name"),
       image:
         "https://images.pexels.com/photos/1287460/pexels-photo-1287460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2",
-      description: "Paraíso tropical con aguas cristalinas",
-      price: "Desde $2,000",
-      duration: "5-12 días",
-      category: "Lujo",
+      description: t("destinations.maldives.description"),
+      price: t("destinations.maldives.price"),
+      duration: t("destinations.maldives.duration"),
+      category: t("destinations.maldives.category"),
     },
     {
-      name: "Islandia",
+      name: t("destinations.iceland.name"),
       image:
         "https://images.pexels.com/photos/1433052/pexels-photo-1433052.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2",
-      description: "Auroras boreales y paisajes volcánicos",
-      price: "Desde $1,500",
-      duration: "6-10 días",
-      category: "Naturaleza",
+      description: t("destinations.iceland.description"),
+      price: t("destinations.iceland.price"),
+      duration: t("destinations.iceland.duration"),
+      category: t("destinations.iceland.category"),
     },
   ];
 
   useEffect(() => {
-      const destinationInterval = setInterval(() => {
-        setCurrentDestination((prev) => (prev + 1) % destinations.length);
-      }, 4000);
-  
-      return () => {
-        clearInterval(destinationInterval);
-      };
-    }, []);
+    const destinationInterval = setInterval(() => {
+      setCurrentDestination((prev) => (prev + 1) % destinations.length);
+    }, 4000);
+
+    return () => {
+      clearInterval(destinationInterval);
+    };
+  }, [destinations.length]);
 
   return (
     <div>
@@ -70,14 +73,13 @@ export default function Lugares() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-[#3f7ade]/10 text-[#3f7ade] border-[#3f7ade]/20 text-lg px-6 py-2">
-              Destinos Populares
+              {t("badge")}
             </Badge>
             <h2 className="text-4xl md:text-6xl font-bold text-[#18428c] mb-6">
-              Explora el Mundo con IA
+              {t("title")}
             </h2>
             <p className="text-xl text-[#18428c]/70 max-w-3xl mx-auto">
-              Descubre destinos únicos seleccionados por nuestra IA según tus
-              preferencias y sueños de viaje.
+              {t("description")}
             </p>
           </div>
 
@@ -122,7 +124,7 @@ export default function Lugares() {
                             </div>
                           </div>
                           <Button className="bg-white text-[#18428c] hover:bg-[#d6ecd2]">
-                            Explorar
+                            {t("exploreButton")}
                             <ArrowRight className="w-4 h-4 ml-2" />
                           </Button>
                         </div>

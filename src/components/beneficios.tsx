@@ -1,39 +1,37 @@
-'use client'
+"use client";
 
-import { Brain, Globe, Shield, Zap } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { Brain, Globe, Zap, Shield } from "lucide-react";
 
 export default function Beneficios() {
+  const t = useTranslations("Beneficios");
   const [currentFeature, setCurrentFeature] = useState(0);
 
   const features = [
     {
       icon: Brain,
-      title: "IA Avanzada",
-      description:
-        "Algoritmos de machine learning que aprenden de tus preferencias para sugerencias cada vez más precisas y personalizadas.",
-      details: "Procesamos más de 50 millones de datos de viaje diariamente",
+      title: t("features.ia.title"),
+      description: t("features.ia.description"),
+      details: t("features.ia.details"),
     },
     {
       icon: Globe,
-      title: "Destinos Globales",
-      description:
-        "Acceso a más de 15,000 destinos en todo el mundo con información actualizada en tiempo real y reseñas verificadas.",
-      details: "Cobertura en 195 países con datos locales actualizados",
+      title: t("features.global.title"),
+      description: t("features.global.description"),
+      details: t("features.global.details"),
     },
     {
       icon: Zap,
-      title: "Planificación Instantánea",
-      description:
-        "Genera itinerarios completos en segundos, optimizados para tu tiempo, presupuesto y preferencias específicas.",
-      details: "Respuesta promedio de 3.2 segundos para itinerarios completos",
+      title: t("features.instant.title"),
+      description: t("features.instant.description"),
+      details: t("features.instant.details"),
     },
     {
       icon: Shield,
-      title: "Viajes Seguros",
-      description:
-        "Monitoreo 24/7 de condiciones de seguridad, alertas en tiempo real y asistencia de emergencia global.",
-      details: "Red de soporte en más de 100 países",
+      title: t("features.safe.title"),
+      description: t("features.safe.description"),
+      details: t("features.safe.details"),
     },
   ];
 
@@ -45,7 +43,7 @@ export default function Beneficios() {
     return () => {
       clearInterval(featureInterval);
     };
-  }, []);
+  }, [features.length]);
 
   return (
     <div>
@@ -53,7 +51,7 @@ export default function Beneficios() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-[#18428c] mb-4">
-              Características que Nos Hacen Únicos
+              {t("title")}
             </h2>
           </div>
 

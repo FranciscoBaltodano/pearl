@@ -1,7 +1,108 @@
 {
-    "Landing": {
-        "title": "Hello world!",
-        "about": "Go to the about page",
-        "subtitle": "Travels Unique with"
+  "Landing": {
+    "title": "Hello world!",
+    "subtitle": "Unique Travels with",
+    "ai": "Artificial Intelligence",
+    "description": "Discover extraordinary destinations perfectly tailored to your tastes, budget, and dreams. Our AI assistant revolutionizes the way to plan unforgettable adventures.",
+    "planButton": "Plan My Trip Now",
+    "demoButton": "View Interactive Demo",
+    "stats": {
+      "travelers": "Happy Travelers",
+      "destinations": "Unique Destinations",
+      "satisfaction": "Satisfaction",
+      "support": "Global Support"
     }
+  },
+  "Beneficios": {
+    "title": "Features that Make Us Unique",
+    "features": {
+      "ia": {
+        "title": "Advanced AI",
+        "description": "Machine learning algorithms that learn from your preferences for increasingly accurate and personalized suggestions.",
+        "details": "We process over 50 million travel data points daily"
+      },
+      "global": {
+        "title": "Global Destinations",
+        "description": "Access to over 15,000 destinations worldwide with real-time updated information and verified reviews.",
+        "details": "Coverage in 195 countries with up-to-date local data"
+      },
+      "instant": {
+        "title": "Instant Planning",
+        "description": "Generate complete itineraries in seconds, optimized for your time, budget, and specific preferences.",
+        "details": "Average response time of 3.2 seconds for complete itineraries"
+      },
+      "safe": {
+        "title": "Safe Travels",
+        "description": "24/7 monitoring of safety conditions, real-time alerts, and global emergency assistance.",
+        "details": "Support network in over 100 countries"
+      }
+    }
+  }, "Lugares": {
+    "badge": "Popular Destinations",
+    "title": "Explore the World with AI",
+    "description": "Discover unique destinations selected by our AI based on your preferences and travel dreams.",
+    "exploreButton": "Explore",
+    "destinations": {
+      "tokyo": {
+        "name": "Tokyo, Japan",
+        "description": "Technology, traditional culture, and unique gastronomy",
+        "price": "From $1,200",
+        "duration": "7-14 days",
+        "category": "Culture"
+      },
+      "santorini": {
+        "name": "Santorini, Greece",
+        "description": "Magical sunsets and Cycladic architecture",
+        "price": "From $800",
+        "duration": "5-10 days",
+        "category": "Romance"
+      },
+      "machu": {
+        "name": "Machu Picchu, Peru",
+        "description": "Ancient history and mountain landscapes",
+        "price": "From $600",
+        "duration": "4-8 days",
+        "category": "Adventure"
+      },
+      "maldives": {
+        "name": "Maldives",
+        "description": "Tropical paradise with crystal-clear waters",
+        "price": "From $2,000",
+        "duration": "5-12 days",
+        "category": "Luxury"
+      },
+      "iceland": {
+        "name": "Iceland",
+        "description": "Northern lights and volcanic landscapes",
+        "price": "From $1,500",
+        "duration": "6-10 days",
+        "category": "Nature"
+      }
+    }
+  }, 
+  "Categorias": {
+    "title": "Travel Your Way",
+    "subtitle": "Our AI adapts to any type of adventure you’re looking for",
+    "categories": {
+      "adventure": { "title": "Adventure", "description": "Hiking, trekking, and extreme sports" },
+      "urban": { "title": "Urban", "description": "Cities, culture, and nightlife" },
+      "beach": { "title": "Beach", "description": "Sun, sand, and water sports" },
+      "nature": { "title": "Nature", "description": "Forests, parks, and wildlife" },
+      "food": { "title": "Gastronomic", "description": "Local flavors and culinary experiences" },
+      "photo": { "title": "Photographic", "description": "Unique landscapes to capture" },
+      "romantic": { "title": "Romantic", "description": "Perfect getaways for couples" },
+      "business": { "title": "Business", "description": "Combine work with local experiences" }
+    }
+  },
+  "Procesos": {
+    "badge": "Smart Process",
+    "title": "Four Steps to Your Perfect Adventure",
+    "subtitle": "Our AI-powered process makes travel planning easier than ever",
+    "steps": {
+      "share": { "title": "Share Your Dreams", "description": "Tell us about your preferences, budget, dates, and the type of experience you want to live." },
+      "ai": { "title": "AI Analyzes & Creates", "description": "Our assistant processes millions of data points to design the perfect and unique trip for you." },
+      "customize": { "title": "Total Customization", "description": "Adjust every detail of your itinerary with smart suggestions and flexible options." },
+      "travel": { "title": "Travel & Enjoy", "description": "Live unique experiences with 24/7 support and real-time updates throughout your journey." }
+    }
+  }
 }

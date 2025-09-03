@@ -104,5 +104,147 @@
       "customize": { "title": "Personalización Total", "description": "Ajusta cada detalle de tu itinerario con sugerencias inteligentes y opciones flexibles." },
       "travel": { "title": "Viaja y Disfruta", "description": "Vive experiencias únicas con soporte 24/7 y actualizaciones en tiempo real durante tu viaje." }
     }
+  },
+  "Features": {
+  "title": "Tecnología de Vanguardia",
+  "subtitle": "Características avanzadas que hacen la diferencia",
+  "items": {
+    "smartphone": {
+      "title": "App Móvil Inteligente",
+      "description": "Accede a tu itinerario offline, recibe notificaciones inteligentes y actualiza planes sobre la marcha.",
+      "features": ["Modo offline", "Notificaciones push", "Sincronización en tiempo real"]
+    },
+    "shield": {
+      "title": "Seguridad Avanzada",
+      "description": "Monitoreo 24/7 de condiciones globales, alertas de seguridad y asistencia de emergencia.",
+      "features": ["Alertas en tiempo real", "Asistencia 24/7", "Seguros de viaje"]
+    },
+    "trending": {
+      "title": "Optimización de Precios",
+      "description": "IA que encuentra las mejores ofertas y predice fluctuaciones de precios para maximizar tu presupuesto.",
+      "features": ["Predicción de precios", "Alertas de ofertas", "Comparación automática"]
+    },
+    "globe": {
+      "title": "Red Global",
+      "description": "Conexiones con guías locales, experiencias auténticas y recomendaciones de residentes.",
+      "features": ["Guías locales", "Experiencias únicas", "Cultura auténtica"]
+    },
+    "calendar": {
+      "title": "Flexibilidad Total",
+      "description": "Modifica fechas, destinos y actividades con sugerencias inteligentes que se adaptan a cambios.",
+      "features": ["Cambios flexibles", "Sugerencias adaptativas", "Reprogramación automática"]
+    },
+    "award": {
+      "title": "Programa de Recompensas",
+      "description": "Gana puntos con cada viaje, desbloquea experiencias exclusivas y accede a descuentos especiales.",
+      "features": ["Puntos por viaje", "Experiencias VIP", "Descuentos exclusivos"]
+    }
+  }
+},
+"Testimonials": {
+  "badge": "Testimonios Reales",
+  "title": "Historias de Viajeros Inspirados",
+  "subtitle": "Descubre cómo TravelAI ha transformado la experiencia de viaje de miles de aventureros",
+  "items": [
+    {
+      "name": "María González",
+      "role": "Viajera Aventurera",
+      "content": "TravelAI me ayudó a descubrir lugares increíbles en Japón que nunca habría encontrado por mi cuenta. El itinerario fue perfecto y se adaptó a mi presupuesto.",
+      "rating": 5,
+      "avatar": "https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
+      "location": "Tokio, Japón"
+    },
+    {
+      "name": "Carlos Ruiz",
+      "role": "Fotógrafo de Viajes",
+      "content": "La IA entendió perfectamente mi pasión por la fotografía y me llevó a los mejores spots para capturar momentos únicos. Increíble precisión en las recomendaciones.",
+      "rating": 5,
+      "avatar": "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
+      "location": "Islandia"
+    }
+  ]
+},
+"Planes": {
+    "title": "Planes para Cada Aventurero",
+    "subtitle": "Elige el plan perfecto para tus necesidades de viaje",
+    "popular": "Más Popular",
+    "cta": "Comenzar Ahora",
+    "explorador": {
+      "name": "Explorador",
+      "price": "Gratis",
+      "description": "Perfecto para comenzar tu aventura",
+      "features": [
+        "3 itinerarios por mes",
+        "Destinos básicos",
+        "Soporte por email",
+        "App móvil"
+      ]
+    },
+    "aventurero": {
+      "name": "Aventurero",
+      "price": "$19/mes",
+      "description": "Para viajeros frecuentes",
+      "features": [
+        "Itinerarios ilimitados",
+        "Todos los destinos",
+        "Soporte prioritario",
+        "Guías locales",
+        "Descuentos exclusivos"
+      ]
+    },
+    "nomada": {
+      "name": "Nómada Pro",
+      "price": "$49/mes",
+      "description": "Para profesionales del viaje",
+      "features": [
+        "Todo de Aventurero",
+        "Concierge personal",
+        "Experiencias VIP",
+        "Seguros premium",
+        "API access"
+      ]
+    }
+  }, "Ayuda": {
+    "title": "¿Listo para tu Próxima Aventura Épica?",
+    "subtitle": "Únete a más de 50,000 viajeros que han descubierto el poder de la personalización con IA. Tu aventura perfecta te está esperando, y está a solo un clic de distancia.",
+    "cta": {
+      "start": "Comenzar Mi Aventura Ahora",
+      "expert": "Hablar con un Experto"
+    },
+    "trust": {
+      "secure": "Datos 100% Seguros",
+      "noCommitment": "Sin Compromisos",
+      "satisfaction": "Garantía de Satisfacción"
+    }
+  },
+  "Footer": {
+    "description": "Revolucionando la forma en que planificas y vives tus viajes con el poder de la inteligencia artificial más avanzada del mundo.",
+    "platform": {
+      "title": "Plataforma",
+      "howItWorks": "Cómo Funciona",
+      "destinations": "Destinos",
+      "pricing": "Precios",
+      "api": "API Developers",
+      "integrations": "Integraciones"
+    },
+    "support": {
+      "title": "Soporte",
+      "helpCenter": "Centro de Ayuda",
+      "contact": "Contacto",
+      "blog": "Blog de Viajes",
+      "status": "Estado del Sistema",
+      "community": "Comunidad"
+    },
+    "legal": {
+      "title": "Legal",
+      "privacy": "Privacidad",
+      "terms": "Términos de Uso",
+      "cookies": "Cookies",
+      "security": "Seguridad",
+      "compliance": "Compliance"
+    },
+    "copyright": "© 2025 Pearl. Todos los derechos reservados. Hecho con ❤️ para viajeros.",
+    "award": "Mejor App de Viajes 2024",
+    "certificate": "Certificado ISO 27001"
   }
 }

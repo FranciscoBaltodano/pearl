@@ -1,67 +1,40 @@
 'use client'
 
-import { Badge, ChevronLeft, ChevronRight, MapIcon, Quote, Star } from 'lucide-react'
+import { Badge, ChevronLeft, ChevronRight, MapIcon, Quote, Star } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-
-  const testimonials = [
-    {
-      name: "María González",
-      role: "Viajera Aventurera",
-      content: "TravelAI me ayudó a descubrir lugares increíbles en Japón que nunca habría encontrado por mi cuenta. El itinerario fue perfecto y se adaptó a mi presupuesto.",
-      rating: 5,
-      avatar: "https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
-      location: "Tokio, Japón"
-    },
-    {
-      name: "Carlos Ruiz",
-      role: "Fotógrafo de Viajes",
-      content: "La IA entendió perfectamente mi pasión por la fotografía y me llevó a los mejores spots para capturar momentos únicos. Increíble precisión en las recomendaciones.",
-      rating: 5,
-      avatar: "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
-      location: "Islandia"
-    },
-    {
-      name: "Ana Martínez",
-      role: "Viajera de Negocios",
-      content: "Perfecto para combinar trabajo y placer. La plataforma optimizó mi tiempo libre en cada ciudad que visité por trabajo. Ahorro tiempo y dinero.",
-      rating: 5,
-      avatar: "https://images.pexels.com/photos/4341921/pexels-photo-4341921.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
-      location: "Nueva York, USA"
-    },
-    {
-      name: "Diego Fernández",
-      role: "Mochilero Digital",
-      content: "Como nómada digital, necesito flexibilidad total. TravelAI adapta mis rutas según mi trabajo remoto y encuentra los mejores espacios de coworking.",
-      rating: 5,
-      avatar: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
-      location: "Bali, Indonesia"
-    }
-  ];
-
 export default function Testimonios() {
-    const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const t = useTranslations("Testimonials")
+  const testimonials = t.raw("items") as {
+    name: string
+    role: string
+    content: string
+    rating: number
+    avatar: string
+    location: string
+  }[]
 
-    useEffect(() => {
-        const testimonialInterval = setInterval(() => {
-        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-        }, 5000);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
-        return () => {
-        clearInterval(testimonialInterval);
-        };
-    }, []);
+  useEffect(() => {
+    const testimonialInterval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
 
-    const nextTestimonial = () => {
-        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    return () => {
+      clearInterval(testimonialInterval);
     };
+  }, [testimonials.length]);
 
-    const prevTestimonial = () => {
-        setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    };
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
 
-
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
 
   return (
     <div>
@@ -69,13 +42,13 @@ export default function Testimonios() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-green-500/10 text-green-600 border-green-500/20 text-lg px-6 py-2">
-              Testimonios Reales
+              {t("badge")}
             </Badge>
             <h2 className="text-4xl md:text-6xl font-bold text-[#18428c] mb-6">
-              Historias de Viajeros Inspirados
+              {t("title")}
             </h2>
             <p className="text-xl text-[#18428c]/70 max-w-3xl mx-auto">
-              Descubre cómo TravelAI ha transformado la experiencia de viaje de miles de aventureros
+              {t("subtitle")}
             </p>
           </div>
           

@@ -1,54 +1,76 @@
 'use client'
 
-import React from 'react'
-import { Card, CardContent } from './ui/card'
 import { Badge, CheckCircle } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Button } from './ui/button'
+import { Card, CardContent } from './ui/card'
 
 export default function Planes() {
+  const t = useTranslations('Planes')
+
+  const plans = [
+    {
+      name: t('explorador.name'),
+      price: t('explorador.price'),
+      description: t('explorador.description'),
+      features: [
+        t('explorador.features.0'),
+        t('explorador.features.1'),
+        t('explorador.features.2'),
+        t('explorador.features.3'),
+      ],
+      color: "border-[#3f7ade]/30",
+      buttonStyle: "border-[#3f7ade] text-[#3f7ade] hover:bg-[#3f7ade] hover:text-white"
+    },
+    {
+      name: t('aventurero.name'),
+      price: t('aventurero.price'),
+      description: t('aventurero.description'),
+      features: [
+        t('aventurero.features.0'),
+        t('aventurero.features.1'),
+        t('aventurero.features.2'),
+        t('aventurero.features.3'),
+        t('aventurero.features.4'),
+      ],
+      color: "border-[#18428c] shadow-2xl scale-105",
+      buttonStyle: "bg-gradient-to-r from-[#3f7ade] to-[#18428c] text-white",
+      popular: true
+    },
+    {
+      name: t('nomada.name'),
+      price: t('nomada.price'),
+      description: t('nomada.description'),
+      features: [
+        t('nomada.features.0'),
+        t('nomada.features.1'),
+        t('nomada.features.2'),
+        t('nomada.features.3'),
+        t('nomada.features.4'),
+      ],
+      color: "border-[#3f7ade]/30",
+      buttonStyle: "border-[#3f7ade] text-[#3f7ade] hover:bg-[#3f7ade] hover:text-white"
+    }
+  ]
+
   return (
     <div>
-              {/* Pricing Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-[#18428c] mb-6">Planes para Cada Aventurero</h2>
-            <p className="text-xl text-[#18428c]/70">Elige el plan perfecto para tus necesidades de viaje</p>
+            <h2 className="text-4xl font-bold text-[#18428c] mb-6">
+              {t('title')}
+            </h2>
+            <p className="text-xl text-[#18428c]/70">{t('subtitle')}</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              {
-                name: "Explorador",
-                price: "Gratis",
-                description: "Perfecto para comenzar tu aventura",
-                features: ["3 itinerarios por mes", "Destinos básicos", "Soporte por email", "App móvil"],
-                color: "border-[#3f7ade]/30",
-                buttonStyle: "border-[#3f7ade] text-[#3f7ade] hover:bg-[#3f7ade] hover:text-white"
-              },
-              {
-                name: "Aventurero",
-                price: "$19/mes",
-                description: "Para viajeros frecuentes",
-                features: ["Itinerarios ilimitados", "Todos los destinos", "Soporte prioritario", "Guías locales", "Descuentos exclusivos"],
-                color: "border-[#18428c] shadow-2xl scale-105",
-                buttonStyle: "bg-gradient-to-r from-[#3f7ade] to-[#18428c] text-white",
-                popular: true
-              },
-              {
-                name: "Nómada Pro",
-                price: "$49/mes",
-                description: "Para profesionales del viaje",
-                features: ["Todo de Aventurero", "Concierge personal", "Experiencias VIP", "Seguros premium", "API access"],
-                color: "border-[#3f7ade]/30",
-                buttonStyle: "border-[#3f7ade] text-[#3f7ade] hover:bg-[#3f7ade] hover:text-white"
-              }
-            ].map((plan, index) => (
+            {plans.map((plan, index) => (
               <Card key={index} className={`relative ${plan.color} hover:scale-105 transition-all duration-300`}>
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                     <Badge className="bg-gradient-to-r from-[#3f7ade] to-[#18428c] text-white px-4 py-1">
-                      Más Popular
+                      {t('popular')}
                     </Badge>
                   </div>
                 )}
@@ -65,7 +87,7 @@ export default function Planes() {
                     ))}
                   </ul>
                   <Button className={`w-full ${plan.buttonStyle}`}>
-                    Comenzar Ahora
+                    {t('cta')}
                   </Button>
                 </CardContent>
               </Card>

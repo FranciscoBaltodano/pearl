@@ -20,6 +20,7 @@ interface Recommendation {
   consejosPracticos: string[];
   mejorEpoca: string;
   presupuestoEstimado: string;
+  imagesUrls: string[];
 }
 
 }

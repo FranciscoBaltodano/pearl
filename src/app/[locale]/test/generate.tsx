@@ -1,48 +1,9 @@
-// import { generateObject } from "ai";
-// import { z } from 'zod';
-// import { google } from "@ai-sdk/google";
-
-// export default async function ContentChat() {
-
-//   const { object } = await generateObject({
-//     model: google("gemini-1.5-flash"),
-//     system:
-//       'You are a professional writer. ' +
-//       'You write simple, clear, and concise content.',
-//     prompt: "Dame una receta de chocoflan",
-//     schema: z.object({
-//         name: z.string(),
-//         ingredients: z.array(z.string()),
-//         pasos: z.array(z.string()),
-//     }),
-//   });
-
-//   return (
-//     <main className="flex flex-col items-center justify-center min-h-screen p-4">
-//       <h1 className="text-2xl font-bold mb-4">Chat with AI</h1>
-//       <div className="bg-white shadow-md rounded-lg p-6 max-w-md w-full">
-//         <p className="text-gray-700">{object?.name}</p>
-//         <h2 className="text-xl font-bold mt-4">Ingredients</h2>
-//         <ul className="list-disc list-inside">
-//           {object?.ingredients.map((ingredient, index) => (
-//             <li key={index} className="text-gray-700">{ingredient}</li>
-//           ))}
-//         </ul>
-//         <h2 className="text-xl font-bold mt-4">Steps</h2>
-//         <ol className="list-decimal list-inside">
-//           {object?.pasos.map((step, index) => (
-//             <li key={index} className="text-gray-700">{step}</li>
-//           ))}
-//         </ol>
-//       </div>
-//     </main>
-//   );
-// }
 
 'use client';
 
 import { useState } from 'react';
-import { MapPin, Calendar, Star } from 'lucide-react';
+import { MapPin, Calendar, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
 // Tipos
 interface SelectedTags {
@@ -60,6 +21,76 @@ interface Recommendation {
   consejosPracticos: string[];
   mejorEpoca: string;
   presupuestoEstimado: string;
+  imagenesUrls: string[]; // URLs de las imágenes del lugar
+}
+
+// Componente del carrusel
+function ImageCarousel({ images }: { images: string[] }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  if (!images || images.length === 0) return null;
+
+  return (
+    <div className="relative mb-6">
+      <div className="relative h-64 bg-gray-200 rounded-lg overflow-hidden">
+        <Image
+          width={430}
+          height={300}
+          src={images[currentIndex]}
+          alt={`Imagen ${currentIndex + 1} del destino`}
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = 'https://media.istockphoto.com/vectors/sorry-vector-id1018127028?k=20&m=1018127028&s=612x612&w=0&h=d8Yv_MyoOsYgLsJqU51IsLrn_WvN1w8eMLvtZaHQz10=';
+          }}
+        />
+        
+        {/* Controles del carrusel */}
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={prevImage}
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            
+            <button
+              onClick={nextImage}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </>
+        )}
+
+        {/* Indicadores */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                currentIndex === index ? 'bg-white' : 'bg-white bg-opacity-50'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+      
+      {/* Contador */}
+      <div className="text-center mt-2 text-sm text-gray-500">
+        {currentIndex + 1} de {images.length}
+      </div>
+    </div>
+  );
 }
 
 export default function TourismGenerator() {
@@ -121,7 +152,9 @@ export default function TourismGenerator() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ selectedTags }),
+        body: JSON.stringify({ 
+          selectedTags
+        }),
       });
 
       if (!response.ok) {
@@ -308,6 +341,11 @@ export default function TourismGenerator() {
                   </p>
                 </div>
 
+                {/* Carrusel de imágenes */}
+                {recommendation.imagenesUrls && recommendation.imagenesUrls.length > 0 && (
+                  <ImageCarousel images={recommendation.imagenesUrls} />
+                )}
+
                 <div>
                   <h4 className="font-semibold text-lg mb-3 flex items-center">
                     🎯 Actividades recomendadas
@@ -355,3 +393,4 @@ export default function TourismGenerator() {
     </main>
   );
 }
+

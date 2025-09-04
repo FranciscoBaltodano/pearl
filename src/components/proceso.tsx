@@ -1,21 +1,24 @@
 'use client'
 
 import { Badge, Brain, Compass, MapPin, Users } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export default function Procesos() {
+  const t = useTranslations('Procesos')
+
   return (
     <div>
-              <section id="como-funciona" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#3f7ade]/10 to-[#18428c]/10">
+      <section id="como-funciona" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#3f7ade]/10 to-[#18428c]/10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-[#18428c]/10 text-[#18428c] border-[#18428c]/20 text-lg px-6 py-2">
-              Proceso Inteligente
+              {t('badge')}
             </Badge>
             <h2 className="text-4xl md:text-6xl font-bold text-[#18428c] mb-6">
-              Cuatro Pasos hacia tu Aventura Perfecta
+              {t('title')}
             </h2>
             <p className="text-xl text-[#18428c]/70 max-w-3xl mx-auto">
-              Nuestro proceso optimizado por IA hace que planificar viajes sea más fácil que nunca
+              {t('subtitle')}
             </p>
           </div>
           
@@ -23,29 +26,29 @@ export default function Procesos() {
             {[
               {
                 step: "01",
-                title: "Comparte tus Sueños",
-                description: "Cuéntanos sobre tus gustos, presupuesto, fechas y el tipo de experiencia que buscas vivir.",
+                title: t('steps.share.title'),
+                description: t('steps.share.description'),
                 icon: Users,
                 color: "from-[#3f7ade] to-[#18428c]"
               },
               {
                 step: "02", 
-                title: "IA Analiza y Crea",
-                description: "Nuestro asistente procesa millones de datos para diseñar el viaje perfecto y único para ti.",
+                title: t('steps.ai.title'),
+                description: t('steps.ai.description'),
                 icon: Brain,
                 color: "from-[#18428c] to-[#3f7ade]"
               },
               {
                 step: "03",
-                title: "Personalización Total",
-                description: "Ajusta cada detalle de tu itinerario con sugerencias inteligentes y opciones flexibles.",
+                title: t('steps.customize.title'),
+                description: t('steps.customize.description'),
                 icon: Compass,
                 color: "from-green-500 to-emerald-600"
               },
               {
                 step: "04",
-                title: "Viaja y Disfruta",
-                description: "Vive experiencias únicas con soporte 24/7 y actualizaciones en tiempo real durante tu viaje.",
+                title: t('steps.travel.title'),
+                description: t('steps.travel.description'),
                 icon: MapPin,
                 color: "from-amber-500 to-orange-600"
               }

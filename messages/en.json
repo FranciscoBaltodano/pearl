@@ -1,9 +1,5 @@
 {
-    "Landing": {
-        "title": "Hello world!",
-        "about": "Go to the about page",
-        "subtitle": "Travels Unique with"
-    },
+
     "navbar": {
         "home": "Home",
         "features": "Features",
@@ -13,5 +9,254 @@
         "login": "Login",
         "start-free": "Start Free",
         "language": "Language"
+  },
+  "Landing": {
+    "title": "Hello world!",
+    "subtitle": "Unique Travels with",
+    "ai": "Artificial Intelligence",
+    "description": "Discover extraordinary destinations perfectly tailored to your tastes, budget, and dreams. Our AI assistant revolutionizes the way to plan unforgettable adventures.",
+    "planButton": "Plan My Trip Now",
+    "demoButton": "View Interactive Demo",
+    "stats": {
+      "travelers": "Happy Travelers",
+      "destinations": "Unique Destinations",
+      "satisfaction": "Satisfaction",
+      "support": "Global Support"
+    }
+  },
+  "Beneficios": {
+    "title": "Features that Make Us Unique",
+    "features": {
+      "ia": {
+        "title": "Advanced AI",
+        "description": "Machine learning algorithms that learn from your preferences for increasingly accurate and personalized suggestions.",
+        "details": "We process over 50 million travel data points daily"
+      },
+      "global": {
+        "title": "Global Destinations",
+        "description": "Access to over 15,000 destinations worldwide with real-time updated information and verified reviews.",
+        "details": "Coverage in 195 countries with up-to-date local data"
+      },
+      "instant": {
+        "title": "Instant Planning",
+        "description": "Generate complete itineraries in seconds, optimized for your time, budget, and specific preferences.",
+        "details": "Average response time of 3.2 seconds for complete itineraries"
+      },
+      "safe": {
+        "title": "Safe Travels",
+        "description": "24/7 monitoring of safety conditions, real-time alerts, and global emergency assistance.",
+        "details": "Support network in over 100 countries"
+      }
+    }
+  }, "Lugares": {
+    "badge": "Popular Destinations",
+    "title": "Explore the World with AI",
+    "description": "Discover unique destinations selected by our AI based on your preferences and travel dreams.",
+    "exploreButton": "Explore",
+    "destinations": {
+      "tokyo": {
+        "name": "Tokyo, Japan",
+        "description": "Technology, traditional culture, and unique gastronomy",
+        "price": "From $1,200",
+        "duration": "7-14 days",
+        "category": "Culture"
+      },
+      "santorini": {
+        "name": "Santorini, Greece",
+        "description": "Magical sunsets and Cycladic architecture",
+        "price": "From $800",
+        "duration": "5-10 days",
+        "category": "Romance"
+      },
+      "machu": {
+        "name": "Machu Picchu, Peru",
+        "description": "Ancient history and mountain landscapes",
+        "price": "From $600",
+        "duration": "4-8 days",
+        "category": "Adventure"
+      },
+      "maldives": {
+        "name": "Maldives",
+        "description": "Tropical paradise with crystal-clear waters",
+        "price": "From $2,000",
+        "duration": "5-12 days",
+        "category": "Luxury"
+      },
+      "iceland": {
+        "name": "Iceland",
+        "description": "Northern lights and volcanic landscapes",
+        "price": "From $1,500",
+        "duration": "6-10 days",
+        "category": "Nature"
+      }
+    }
+  },
+  "Categorias": {
+    "title": "Travel Your Way",
+    "subtitle": "Our AI adapts to any type of adventure you’re looking for",
+    "categories": {
+      "adventure": { "title": "Adventure", "description": "Hiking, trekking, and extreme sports" },
+      "urban": { "title": "Urban", "description": "Cities, culture, and nightlife" },
+      "beach": { "title": "Beach", "description": "Sun, sand, and water sports" },
+      "nature": { "title": "Nature", "description": "Forests, parks, and wildlife" },
+      "food": { "title": "Gastronomic", "description": "Local flavors and culinary experiences" },
+      "photo": { "title": "Photographic", "description": "Unique landscapes to capture" },
+      "romantic": { "title": "Romantic", "description": "Perfect getaways for couples" },
+      "business": { "title": "Business", "description": "Combine work with local experiences" }
+    }
+  },
+  "Procesos": {
+    "badge": "Smart Process",
+    "title": "Four Steps to Your Perfect Adventure",
+    "subtitle": "Our AI-powered process makes travel planning easier than ever",
+    "steps": {
+      "share": { "title": "Share Your Dreams", "description": "Tell us about your preferences, budget, dates, and the type of experience you want to live." },
+      "ai": { "title": "AI Analyzes & Creates", "description": "Our assistant processes millions of data points to design the perfect and unique trip for you." },
+      "customize": { "title": "Total Customization", "description": "Adjust every detail of your itinerary with smart suggestions and flexible options." },
+      "travel": { "title": "Travel & Enjoy", "description": "Live unique experiences with 24/7 support and real-time updates throughout your journey." }
+    }
+  },
+"Features": {
+  "title": "Cutting-Edge Technology",
+  "subtitle": "Advanced features that make the difference",
+  "items": {
+    "smartphone": {
+      "title": "Smart Mobile App",
+      "description": "Access your itinerary offline, receive smart notifications, and update plans on the go.",
+      "features": ["Offline mode", "Push notifications", "Real-time sync"]
+    },
+    "shield": {
+      "title": "Advanced Security",
+      "description": "24/7 monitoring of global conditions, security alerts, and emergency assistance.",
+      "features": ["Real-time alerts", "24/7 support", "Travel insurance"]
+    },
+    "trending": {
+      "title": "Price Optimization",
+      "description": "AI finds the best deals and predicts price fluctuations to maximize your budget.",
+      "features": ["Price prediction", "Deal alerts", "Automatic comparison"]
+    },
+    "globe": {
+      "title": "Global Network",
+      "description": "Connections with local guides, authentic experiences, and resident recommendations.",
+      "features": ["Local guides", "Unique experiences", "Authentic culture"]
+    },
+    "calendar": {
+      "title": "Total Flexibility",
+      "description": "Modify dates, destinations, and activities with smart suggestions that adapt to changes.",
+      "features": ["Flexible changes", "Adaptive suggestions", "Automatic rescheduling"]
+    },
+    "award": {
+      "title": "Rewards Program",
+      "description": "Earn points with each trip, unlock exclusive experiences, and access special discounts.",
+      "features": ["Points per trip", "VIP experiences", "Exclusive discounts"]
+    }
+  }
+},
+"Testimonials": {
+  "badge": "Real Testimonials",
+  "title": "Stories from Inspired Travelers",
+  "subtitle": "Discover how TravelAI has transformed the travel experience of thousands of adventurers",
+  "items": [
+    {
+      "name": "Maria Gonzalez",
+      "role": "Adventure Traveler",
+      "content": "TravelAI helped me discover incredible places in Japan that I would never have found on my own. The itinerary was perfect and fit my budget.",
+      "rating": 5,
+      "avatar": "https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
+      "location": "Tokyo, Japan"
+    },
+    {
+      "name": "Carlos Ruiz",
+      "role": "Travel Photographer",
+      "content": "The AI perfectly understood my passion for photography and led me to the best spots to capture unique moments. Incredible accuracy in recommendations.",
+      "rating": 5,
+      "avatar": "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=2",
+      "location": "Iceland"
+    }
+  ]
+},
+"Planes": {
+    "title": "Plans for Every Adventurer",
+    "subtitle": "Choose the perfect plan for your travel needs",
+    "popular": "Most Popular",
+    "cta": "Get Started",
+    "explorador": {
+      "name": "Explorer",
+      "price": "Free",
+      "description": "Perfect to start your adventure",
+      "features": [
+        "3 itineraries per month",
+        "Basic destinations",
+        "Email support",
+        "Mobile app"
+      ]
+    },
+    "aventurero": {
+      "name": "Adventurer",
+      "price": "$19/month",
+      "description": "For frequent travelers",
+      "features": [
+        "Unlimited itineraries",
+        "All destinations",
+        "Priority support",
+        "Local guides",
+        "Exclusive discounts"
+      ]
+    },
+    "nomada": {
+      "name": "Nomad Pro",
+      "price": "$49/month",
+      "description": "For travel professionals",
+      "features": [
+        "Everything from Adventurer",
+        "Personal concierge",
+        "VIP experiences",
+        "Premium insurance",
+        "API access"
+      ]
+    }
+  },
+  "Ayuda": {
+    "title": "Ready for Your Next Epic Adventure?",
+    "subtitle": "Join over 50,000 travelers who have discovered the power of AI personalization. Your perfect adventure is waiting, just one click away.",
+    "cta": {
+      "start": "Start My Adventure Now",
+      "expert": "Talk to an Expert"
+    },
+    "trust": {
+      "secure": "100% Secure Data",
+      "noCommitment": "No Commitments",
+      "satisfaction": "Satisfaction Guarantee"
+    }
+  },
+  "Footer": {
+    "description": "Revolutionizing the way you plan and live your trips with the power of the world's most advanced artificial intelligence.",
+    "platform": {
+      "title": "Platform",
+      "howItWorks": "How It Works",
+      "destinations": "Destinations",
+      "pricing": "Pricing",
+      "api": "API Developers",
+      "integrations": "Integrations"
+    },
+    "support": {
+      "title": "Support",
+      "helpCenter": "Help Center",
+      "contact": "Contact",
+      "blog": "Travel Blog",
+      "status": "System Status",
+      "community": "Community"
+    },
+    "legal": {
+      "title": "Legal",
+      "privacy": "Privacy",
+      "terms": "Terms of Use",
+      "cookies": "Cookies",
+      "security": "Security",
+      "compliance": "Compliance"
+    },
+    "copyright": "© 2025 Pearl. All rights reserved. Made with ❤️ for travelers.",
+    "award": "Best Travel App 2024",
+    "certificate": "ISO 27001 Certified"
   }
 }

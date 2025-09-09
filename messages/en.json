@@ -1,14 +1,14 @@
 {
 
-    "navbar": {
-        "home": "Home",
-        "features": "Features",
-        "destinations": "Destinations",
-        "how-it-works": "How It Works",
-        "testimonials": "Testimonials",
-        "login": "Login",
-        "start-free": "Start Free",
-        "language": "Language"
+  "navbar": {
+      "home": "Home",
+      "features": "Features",
+      "destinations": "Destinations",
+      "how-it-works": "How It Works",
+      "testimonials": "Testimonials",
+      "login": "Login",
+      "start-free": "Start Free",
+      "language": "Language"
   },
   "Landing": {
     "title": "Hello world!",

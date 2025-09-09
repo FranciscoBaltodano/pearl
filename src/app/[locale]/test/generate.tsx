@@ -15,17 +15,18 @@ interface SelectedTags {
 }
 
 interface Recommendation {
-  destinoRecomendado: string;
+  destinoRecomendado: string[];
   descripcion: string;
   actividades: string[];
   consejosPracticos: string[];
   mejorEpoca: string;
   presupuestoEstimado: string;
-  imagenesUrls: string[]; // URLs de las imágenes del lugar
+  imagenesUrls: string[]; 
+  itinerario?: ItinerarioDia[];
 }
 
 // Componente del carrusel
-function ImageCarousel({ images }: { images: string[] }) {
+function ImageCarousel({ images, title }: { images: string[], title?: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextImage = () => {
@@ -40,12 +41,18 @@ function ImageCarousel({ images }: { images: string[] }) {
 
   return (
     <div className="relative mb-6">
+      {title && (
+        <h4 className="font-semibold text-lg mb-3 text-gray-800">
+          📸 {title}
+        </h4>
+      )}
+      
       <div className="relative h-64 bg-gray-200 rounded-lg overflow-hidden">
         <Image
           width={430}
           height={300}
           src={images[currentIndex]}
-          alt={`Imagen ${currentIndex + 1} del destino`}
+          alt={`Imagen ${currentIndex + 1} ${title ? `de ${title}` : 'del destino'}`}
           className="w-full h-full object-cover"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = 'https://media.istockphoto.com/vectors/sorry-vector-id1018127028?k=20&m=1018127028&s=612x612&w=0&h=d8Yv_MyoOsYgLsJqU51IsLrn_WvN1w8eMLvtZaHQz10=';
@@ -330,22 +337,58 @@ export default function TourismGenerator() {
               </div>
             )}
 
-            {recommendation && (
+                        {recommendation && (
               <div className="space-y-6">
                 <div>
                   <h3 className="text-xl font-bold text-blue-700 mb-2">
-                    📍 {recommendation.destinoRecomendado}
+                    📍 Ruta Recomendada: {recommendation.destinoRecomendado.join(' → ')}
                   </h3>
                   <p className="text-gray-700 leading-relaxed">
                     {recommendation.descripcion}
                   </p>
                 </div>
 
-                {/* Carrusel de imágenes */}
-                {recommendation.imagenesUrls && recommendation.imagenesUrls.length > 0 && (
+                {/* Mostrar carrusel principal solo para viajes cortos */}
+                {(!recommendation.itinerario || recommendation.itinerario.length === 0) && (
                   <ImageCarousel images={recommendation.imagenesUrls} />
                 )}
 
+                {recommendation.itinerario && recommendation.itinerario.length > 0 && (
+                  <div>
+                    <h4 className="font-semibold text-lg mb-3 flex items-center">
+                      🗓️ Itinerario por Días
+                    </h4>
+                    <div className="space-y-8">
+                      {recommendation.itinerario.map((dia, index) => (
+                        <div key={index} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                          <h5 className="font-medium text-blue-800 mb-3 text-lg">
+                            Día {dia.dia}: {dia.destino}
+                          </h5>
+                          
+                          {/* Carrusel de imágenes para este destino específico */}
+                          {dia.imagenesUrls && dia.imagenesUrls.length > 0 && (
+                            <ImageCarousel 
+                              images={dia.imagenesUrls} 
+                              title={dia.destino}
+                            />
+                          )}
+                          
+                          <p className="text-gray-700 mb-3">{dia.descripcion}</p>
+                          
+                          <h6 className="font-medium text-gray-800 mb-2">Actividades:</h6>
+                          <ul className="space-y-2">
+                            {dia.actividades.map((actividad, idx) => (
+                              <li key={idx} className="flex items-start">
+                                <span className="text-blue-500 mr-2">•</span>
+                                <span className="text-gray-700">{actividad}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <div>
                   <h4 className="font-semibold text-lg mb-3 flex items-center">
                     🎯 Actividades recomendadas

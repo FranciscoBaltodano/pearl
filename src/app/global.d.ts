@@ -23,6 +23,14 @@ interface Recommendation {
   imagesUrls: string[];
 }
 
+interface ItinerarioDia {
+  dia: number;
+  destino: string;
+  actividades: string[];
+  descripcion: string;
+  imagenesUrls: string[];
+}
+
 }
 
 

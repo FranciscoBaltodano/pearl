@@ -1,30 +1,30 @@
 "use client";
 
-import type React from "react";
-import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
-  Mountain,
-  Waves,
-  Camera,
-  Utensils,
-  Plane,
-  TreePine,
-  Building2,
-  Compass,
-  MapPin,
-  Palette,
-  Music,
-  ShoppingBag,
-  Bike,
-  Gamepad2,
-  Coffee,
-  Star,
-  Check,
   ArrowRight,
+  Bike,
+  Building2,
+  Camera,
+  Check,
+  Coffee,
+  Compass,
+  Gamepad2,
+  MapPin,
+  Mountain,
+  Music,
+  Palette,
+  Plane,
+  ShoppingBag,
+  Star,
+  TreePine,
+  Utensils,
+  Waves,
 } from "lucide-react";
+import type React from "react";
+import { useState } from "react";
 
 interface Activity {
   id: string;

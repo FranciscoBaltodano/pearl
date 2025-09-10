@@ -18,7 +18,8 @@ const recommendationSchema = z.object({
     dia: z.number(),
     destino: z.string(),
     actividades: z.array(z.string()),
-    descripcion: z.string()
+    descripcion: z.string(),
+    imagenesUrls: z.array(z.string()).optional()
   })).optional()
 });
 
@@ -171,7 +172,7 @@ export async function POST(req: NextRequest) {
     if (isMultiDayTrip && object.itinerario) {
       // Para viajes múltiples: obtener imágenes para cada destino del itinerario
       itinerarioConImagenes = await Promise.all(
-        object.itinerario.map(async (dia: ItinerarioDia) => {
+        object.itinerario.map(async (dia) => {
           const imagenesDia = await fetchUnsplashImages([dia.destino], selectedTags.destination);
           return { ...dia, imagenesUrls: imagenesDia };
         })

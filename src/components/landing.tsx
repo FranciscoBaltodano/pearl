@@ -90,7 +90,7 @@ export default function LandingPage() {
         <div className="absolute top-64 right-16 w-32 h-32 bg-gradient-to-r from-[#d6ecd2]/50 to-[#3f7ade]/30 rounded-full blur-xl animate-pulse delay-1000"></div>
         <div className="absolute bottom-20 left-1/4 w-20 h-20 bg-gradient-to-r from-[#18428c]/30 to-[#3f7ade]/30 rounded-full blur-xl animate-pulse delay-500"></div>
       </section>
-
+      <section>
       <Beneficios/>
       <Lugares/>
       <Categorias/>
@@ -100,6 +100,8 @@ export default function LandingPage() {
       <Planes/>
       <Ayuda/>
       <Footer/>
+      </section>
+   
     </div>
   );
 }

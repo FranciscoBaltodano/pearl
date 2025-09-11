@@ -1,8 +1,8 @@
 // app/api/generate-travel/route.ts
-import { generateObject } from 'ai';
-import { z } from 'zod';
 import { google } from '@ai-sdk/google';
+import { generateObject } from 'ai';
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 
 // Guardar los últimos 5 destinos recomendados
 let lastDestinations: string[] = [];
@@ -136,6 +136,7 @@ export async function POST(req: NextRequest) {
       - Duración: ${selectedTags.duration}
       - Presupuesto: ${selectedTags.budget}
       - Tipo de viajero: ${selectedTags.travelers}
+      - País: ${selectedTags.country || 'cualquier país'}
 
       IMPORTANTE:`;
 
@@ -144,10 +145,10 @@ export async function POST(req: NextRequest) {
       - Para esta duración, recomienda entre 3 y 5 destinos diferentes que sean relativamente cercanos entre sí.
       - Los destinos deben formar una ruta lógica y coherente.
       - Incluye un itinerario detallado por día con actividades específicas para cada destino.
-      - Los destinos deben ser reales, específicos y diferentes a los últimos destinos sugeridos: [${excluded}].`;
+      - Los destinos deben ser reales, específicos${selectedTags.country ? ` ubicados en ${selectedTags.country}` : ''} y diferentes a los últimos destinos sugeridos: [${excluded}].`;
     } else {
       prompt += `
-      - El destino recomendado debe ser real, específico y diferente a los últimos destinos sugeridos: [${excluded}].`;
+      - - El destino recomendado debe ser real, específico${selectedTags.country ? ` ubicado en ${selectedTags.country}` : ''} y diferente a los últimos destinos sugeridos: [${excluded}].`;
     }
 
     prompt += `

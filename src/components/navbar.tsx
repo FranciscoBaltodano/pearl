@@ -82,12 +82,18 @@ export default function Navbar() {
               >
                 {t('how-it-works')}
               </a>
-              <a
+              {/* <a
                 href="#testimonios"
                 className="text-[#18428c] hover:text-[#3f7ade] transition-colors font-medium"
               >
                 {t('testimonials')}
-              </a>
+              </a> */}
+                <Link 
+                  href="/test"
+                  className="text-[#18428c] hover:text-[#3f7ade] transition-colors font-medium"
+                >
+                  {t('testimonials')}
+                </Link>
 
               {/* Selector de idioma */}
               <div className="relative">
@@ -127,7 +133,9 @@ export default function Navbar() {
                 </Link>
               </Button>
               <Button className="bg-gradient-to-r from-[#3f7ade] to-[#18428c] hover:from-[#18428c] hover:to-[#3f7ade] text-white shadow-lg transition-all duration-300">
-                {t('start-free')}
+                <Link href="/singup">
+                  {t('start-free')}
+                </Link>
               </Button>
             </div>
 

@@ -7,6 +7,10 @@ export const routing = defineRouting({
   
   pathnames: {
     '/': '/',
-    '/login': '/login'
+    '/login': '/login',
+    '/singup': '/singup',
+    '/test': '/test',
+    '/profile': '/profile',
+    '/chat': '/chat',
   }
 });

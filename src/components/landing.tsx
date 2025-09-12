@@ -22,6 +22,7 @@ import Beneficios from './beneficios';
 import Navbar from './navbar';
 import Ayuda from './ayuda';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 export default function LandingPage() {
   const t = useTranslations('Landing');
@@ -52,7 +53,9 @@ export default function LandingPage() {
                 className="bg-gradient-to-r from-[#3f7ade] to-[#18428c] hover:from-[#18428c] hover:to-[#3f7ade] text-white text-xl px-12 py-6 h-auto group shadow-2xl transform hover:scale-105 transition-all duration-300"
               >
                 <Play className="w-6 h-6 mr-3" />
-                {t('planButton')}
+                  <Link href="/test">
+                    {t('planButton')}
+                  </Link>
                 <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform" />
               </Button>
               <Button 

@@ -1,14 +1,18 @@
 
 'use client'
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button'
 import { Link,  usePathname } from '@/i18n/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 
 import React from "react";
 import LogoPearl from "./logo-pearl";
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, LogOut, User, Tag, Store, ShoppingCart, Heart } from 'lucide-react';
+import { signOut } from '@/api/server';
+import { useRouter } from 'next/navigation';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { AnimatePresence, motion } from "framer-motion";
 
 // Definir los idiomas disponibles
 const locales = [
@@ -19,29 +23,42 @@ const locales = [
   { code: 'fr', name: 'Français', flag: '🇫🇷' }
 ];
 
-export default function Navbar() {
+
+// const pages = [
+//   { ruta: "Inicio", href: "/", current: true },
+//   { ruta: "Nosotros", href: "/nosotros", current: false },
+//   { ruta: "Servicios", href: "/servicios", current: false },
+// ]
+
+export default function Navbar({ user }: { user: { nombre: string, avatar_url: string } | null }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null)
+  const [isOpen, setIsOpen] = useState(false)
   
-  // Hooks de next-intl
   const t = useTranslations('navbar');
   const locale = useLocale();
-  // const router = useRouter();
   const pathname = usePathname();
+  const router = useRouter()
 
-  // Función corregida para cambio de idioma
   const handleLanguageChange = (newLocale: string) => {
-    // Cerrar el menú inmediatamente
     setIsLanguageMenuOpen(false);
     setIsMenuOpen(false);
     
-    // Usar push en lugar de replace para evitar problemas de hidratación
-    // router.push(pathname, { locale: newLocale });
-      // Usar window.location como último recurso
   const currentPath = pathname;
   window.location.href = `/${newLocale}${currentPath}`;
 
   };
+
+  const handleLogout = async () => {
+    await signOut()
+    router.push('/')
+  }
+
+  const handleToggle = (event: React.MouseEvent) => {
+    event?.stopPropagation()
+    setIsOpen(prev => !prev)
+  }
 
   const currentLocale = locales.find(l => l.code === locale);
 
@@ -126,12 +143,103 @@ export default function Navbar() {
                   </div>
                 )}
               </div>
+              <div className="flex items-center space-x-4">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute left-0 md:hidden group hover:text-custom-blue"
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
+                  <Menu className="h-5 w-5 group-hover:text-custom-blue transition-colors" />
+                </Button>
+                {!user ? (
+                  <Button asChild variant="outline" className="border-[#3f7ade] text-[#3f7ade] hover:bg-[#3f7ade] hover:text-white transition-colors">
+                    <Link href="/login">
+                      {t('login')}
+                    </Link>
+                  </Button>
+                ) : (
+                  <div className="relative inline-block text-left">
+                    {/* Contenedor flex para alinear los botones y el avatar en una fila */}
+                    <div className="flex items-center">
+                      <Button asChild variant="ghost" size="icon" className="group hover:text-custom-blue">
+                        <Link href="/trips">
+                          <ShoppingCart className="h-5 w-5 *:group-hover:text-custom-blue transition-colors" />
+                        </Link>
+                      </Button>
+                      <Button asChild variant="ghost" size="icon" className="group hover:text-custom-blue mx-2">
+                        <Link href="/wishlist">
+                          <Heart className="h-5 w-5 *:group-hover:text-custom-blue transition-colors" />
+                        </Link>
+                      </Button>
 
-              <Button asChild variant="outline" className="border-[#3f7ade] text-[#3f7ade] hover:bg-[#3f7ade] hover:text-white transition-colors">
-                <Link href="/login">
-                  {t('login')}
-                </Link>
-              </Button>
+                      {/* Avatar y nombre de usuario */}
+                      <button
+                        onClick={handleToggle}
+                        className="flex items-center cursor-pointer focus:outline-none px-2"
+                      >
+                        <div className="flex items-center space-x-2 cursor-pointer">
+                          <Avatar className="w-8 h-8">
+                            <AvatarImage src={user.avatar_url} className="image-cover" />
+                            <AvatarFallback>
+                              {user.nombre.slice(0, 2).toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <span className="">{user.nombre}</span>
+                        </div>
+                      </button>
+                    </div>
+
+                    <AnimatePresence>
+                      {isOpen && (
+                        <motion.div
+                          ref={dropdownRef}
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute right-0 mt-2 w-max p-1 bg-white rounded-lg shadow-2xl ring-1 ring-gray-200 focus:outline-none z-20"
+                        >
+                          <Link
+                            href="/profile"
+                            onClick={() => setIsOpen(false)}
+                            className="flex items-center px-2 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-md transition-all duration-150 ease-in-out"
+                          >
+                            <User className="mr-2 h-4 w-4" />
+                            Perfil
+                          </Link>
+                          <Link
+                            href="/trips"
+                            onClick={() => setIsOpen(false)}
+                            className="flex items-center px-2 py-2 text-sm text-green-600 hover:bg-gray-100 rounded-md transition-all duration-150 ease-in-out"
+                          >
+                            <Tag className="mr-2 h-4 w-4 text-green-500" />
+                            Publicar
+                          </Link>
+                          <Link
+                            href="/wishlist"
+                            onClick={() => setIsOpen(false)}
+                            className="flex items-center px-2 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-md transition-all duration-150 ease-in-out"
+                          >
+                            <Store className="mr-2 h-4 w-4" />
+                            Mis productos
+                          </Link>
+                          <button
+                            onClick={() => {
+                              setIsOpen(false)
+                              handleLogout()
+                            }}
+                            className="flex items-center w-full px-2 py-2 text-sm hover:bg-gray-100 rounded-md transition-all duration-150 ease-in-out"
+                          >
+                            <LogOut className="mr-2 h-4 w-4" />
+                            Cerrar Sesión
+                          </button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                )}
+              </div>
               <Button className="bg-gradient-to-r from-[#3f7ade] to-[#18428c] hover:from-[#18428c] hover:to-[#3f7ade] text-white shadow-lg transition-all duration-300">
                 <Link href="/singup">
                   {t('start-free')}

@@ -12,5 +12,7 @@ export const routing = defineRouting({
     '/test': '/test',
     '/profile': '/profile',
     '/chat': '/chat',
+    '/wishlist': '/wishlist',
+    '/trips': '/trips',
   }
 });

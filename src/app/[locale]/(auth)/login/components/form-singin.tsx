@@ -4,9 +4,42 @@ import LogoPearl from "@/components/logo-pearl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import Link from "next/link";
+import { loginFormSchema } from "@/zod/login/login";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import z from "zod";
+import { useTransition } from "react";
+import { toast } from "sonner";
+import { signIn } from "@/api/server";
+import { SplineIcon } from "lucide-react";
+
+type LoginFormType = z.infer<typeof loginFormSchema>;
 
 export default function FormSingIn() {
+  const [isPending, startTransition] = useTransition()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<LoginFormType>({
+    resolver: zodResolver(loginFormSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    }
+  });
+
+  function onSubmit (data: z.infer<typeof loginFormSchema>) {
+    startTransition(async () => {
+      const result = await signIn(data)
+      const { error } = JSON.parse(result)
+      if (error.message) {
+        toast.error(error.message)
+      }
+    })
+  }
+
   return (
     <div className="min-h-screen flex flex-row w-full">
       <div className="w-1/2 hidden md:flex">imagen de fondo</div>
@@ -20,7 +53,7 @@ export default function FormSingIn() {
               Bienvenido a <span className="font-bold">Pearl</span>
             </h1>
           </div>
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="w-full">
               <Label
                 className="block text-md font-medium mb-1"
@@ -31,10 +64,17 @@ export default function FormSingIn() {
               <Input
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="email"
-                id="correo"
-                name="correo"
+                id="email"
+                autoComplete="email"
                 placeholder="Ingresa tu correo electrónico"
+                disabled={isPending}
+                {...register('email')}
               />
+              {errors.email && (
+                <p className="text-xs italic text-red-500 mt-0">
+                  {errors.email?.message}
+                </p>
+              )}
             </div>
             <div>
               <Label
@@ -47,9 +87,17 @@ export default function FormSingIn() {
                 className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 type="password"
                 id="password"
-                name="password"
                 placeholder="Ingresa tu contraseña"
+                autoComplete="password"
+                autoCorrect="off"
+                disabled={isPending}
+                {...register('password')}
               />
+              {errors.password && (
+                <p className="text-xs italic text-red-500 mt-2">
+                  {errors.password?.message}
+                </p>
+              )}
             </div>
             <div className="pb-4">
               <a
@@ -61,11 +109,13 @@ export default function FormSingIn() {
             </div>
             <div className="m-10 flex flex-col gap-2">
               <div>
-                <Button
-                  className="w-full bg-[#18428C] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#18428C]/90 transition duration-300 cursor-pointer"
-                  type="submit"
-                >
-                  Iniciar Sesion
+                <Button 
+                className="w-full bg-[#18428C] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#18428C]/90 transition duration-300 cursor-pointer" 
+                disabled={isPending}>
+                  {isPending && (
+                    <SplineIcon className="mr-2 h-4 w-4 animate-spin" />
+                  )}
+                  Iniciar sesión
                 </Button>
               </div>
               <div className="text-center text-sm text-gray-600">

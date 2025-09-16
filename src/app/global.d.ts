@@ -2,7 +2,8 @@ import { type Database as DB } from '@/lib/database.types'
 
 declare global {
   type Database = DB
-  type Empresas = DB['public']['Tables']['empresas']['Row']
+  type Empresas = DB['pearl']['Tables']['empresas']['Row']
+  type UsuariosInsert = DB['pearl']['Tables']['usuarios']['Insert']
 
 
   interface SelectedTags {
@@ -29,6 +30,13 @@ interface ItinerarioDia {
   actividades: string[];
   descripcion: string;
   imagenesUrls: string[];
+}
+
+type UsuariosCreate ={
+    // apellido?: string | null | undefined;
+    correo: string;
+    id?: string | undefined;
+    nombre?: string | null | undefined;
 }
 
 }

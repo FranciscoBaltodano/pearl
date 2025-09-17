@@ -84,3 +84,16 @@ export async function setRoleUser({
 
   return { data, error }
 }
+
+
+export async function getUserData (userId: string) {
+  const { data: usuario, error } = await supabase
+    .from('usuarios')
+    .select('nombre, avatar_url')
+    .eq("id", userId)
+    .single();
+
+    console.log(usuario)
+
+  return { usuario, error }
+}

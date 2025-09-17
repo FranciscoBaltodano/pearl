@@ -8,15 +8,17 @@ import { loginFormSchema } from "@/zod/login/login";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from "zod";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { signIn } from "@/api/server";
 import { SplineIcon } from "lucide-react";
+import Link from "next/link";
 
 type LoginFormType = z.infer<typeof loginFormSchema>;
 
 export default function FormSingIn() {
   const [isPending, startTransition] = useTransition()
+  const [serverError, setServerError] = useState<string>("");
 
   const {
     register,
@@ -30,14 +32,37 @@ export default function FormSingIn() {
     }
   });
 
-  function onSubmit (data: z.infer<typeof loginFormSchema>) {
+  function onSubmit(data: z.infer<typeof loginFormSchema>) {
+    setServerError("");
+    
     startTransition(async () => {
-      const result = await signIn(data)
-      const { error } = JSON.parse(result)
-      if (error.message) {
-        toast.error(error.message)
+      try {
+        await signIn(data);
+        
+        toast.success("¡Inicio de sesión exitoso!");
+        window.location.href = '/';
+        
+      } catch (error) {
+        console.error("Login error:", error);
+        
+        let errorMessage = "Error al iniciar sesión";
+        
+        if (error instanceof Error) {
+          if (error.message.includes("Invalid login credentials")) {
+            errorMessage = "Credenciales inválidas. Verifica tu email y contraseña.";
+          } else if (error.message.includes("Email not confirmed")) {
+            errorMessage = "Por favor confirma tu email antes de iniciar sesión.";
+          } else if (error.message.includes("Too many requests")) {
+            errorMessage = "Demasiados intentos. Intenta de nuevo más tarde.";
+          } else {
+            errorMessage = error.message;
+          }
+        }
+        
+        setServerError(errorMessage);
+        toast.error(errorMessage);
       }
-    })
+    });
   }
 
   return (
@@ -53,6 +78,13 @@ export default function FormSingIn() {
               Bienvenido a <span className="font-bold">Pearl</span>
             </h1>
           </div>
+          
+          {serverError && (
+            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+              {serverError}
+            </div>
+          )}
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="w-full">
               <Label
@@ -88,7 +120,7 @@ export default function FormSingIn() {
                 type="password"
                 id="password"
                 placeholder="Ingresa tu contraseña"
-                autoComplete="password"
+                autoComplete="current-password"
                 autoCorrect="off"
                 disabled={isPending}
                 {...register('password')}
@@ -100,22 +132,24 @@ export default function FormSingIn() {
               )}
             </div>
             <div className="pb-4">
-              <a
+              <Link
                 href="#"
                 className="text-sm text-[#18428C] hover:underline float-right"
               >
                 ¿Olvidaste tu contraseña?
-              </a>
+              </Link>
             </div>
             <div className="m-10 flex flex-col gap-2">
               <div>
                 <Button 
-                className="w-full bg-[#18428C] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#18428C]/90 transition duration-300 cursor-pointer" 
-                disabled={isPending}>
+                  type="submit"
+                  className="w-full bg-[#18428C] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#18428C]/90 transition duration-300 cursor-pointer disabled:opacity-50" 
+                  disabled={isPending}
+                >
                   {isPending && (
                     <SplineIcon className="mr-2 h-4 w-4 animate-spin" />
                   )}
-                  Iniciar sesión
+                  {isPending ? "Iniciando sesión..." : "Iniciar sesión"}
                 </Button>
               </div>
               <div className="text-center text-sm text-gray-600">
@@ -123,10 +157,14 @@ export default function FormSingIn() {
               </div>
               <div>
                 <Button
-                  className="w-full bg-white text-[#18428C] font-semibold py-2 px-4 rounded-lg transition duration-300 cursor-pointer border border-[#18428C]"
-                  type="submit"
+                  asChild
+                  variant="outline"
+                  className="w-full bg-white text-[#18428C] font-semibold py-2 px-4 rounded-lg transition duration-300 cursor-pointer border border-[#18428C] hover:bg-gray-50"
+                  disabled={isPending}
                 >
-                  Registrate
+                  <Link href="/signup">
+                    Registrarse
+                  </Link>
                 </Button>
               </div>
             </div>

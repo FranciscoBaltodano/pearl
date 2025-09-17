@@ -1,8 +1,9 @@
 'use server'
 
 import { createClient } from "@/lib/supabase/server"
-// import { registerUser } from "./usuarios"
 import { redirect } from "next/navigation"
+import { getUserData } from "./signup"
+import { revalidatePath } from "next/cache"
 
 export const updateEmail = async (newEmail: string) => {
   const supabase = await createClient()
@@ -63,22 +64,69 @@ export const updateEmail = async (newEmail: string) => {
 //   return data
 // }
 
+// export async function signIn(dataForm: { email: string; password: string; }) {
+//   const supabase = await createClient();
+
+//   const { error } = await supabase.auth.signInWithPassword(dataForm)
+
+//   if (error) {
+//     throw new Error(`${error}`)
+//   }
+
+//   return redirect('/')
+// }
+
 export async function signIn(dataForm: { email: string; password: string; }) {
-  const supabase = await createClient();
+  try {
+    const supabase = await createClient();
 
-  const { error } = await supabase.auth.signInWithPassword(dataForm)
+    const { data, error } = await supabase.auth.signInWithPassword(dataForm);
 
-  if (error) {
-    throw new Error(`${error}`)
+    if (error) {
+      throw new Error(`Login failed: ${error.message}`);
+    }
+
+    if (data.user) {
+      // Revalidar todas las rutas que dependen de autenticación
+      revalidatePath('/', 'layout');
+      revalidatePath('/profile');
+      revalidatePath('/test');
+      
+      console.log("Login successful for:", data.user.email);
+    }
+
+    return redirect('/');
+  } catch (error) {
+    console.error("Error in signIn:", error);
+    throw error;
   }
-
-  return redirect('/')
 }
+
+// export async function signOut() {
+//   const supabase = await createClient();
+//   return await supabase.auth.signOut()
+// }
 
 export async function signOut() {
-  const supabase = await createClient();
-  return await supabase.auth.signOut()
+  try {
+    const supabase = await createClient();
+    const { error } = await supabase.auth.signOut();
+    
+    if (error) {
+      console.error("Error signing out:", error);
+      throw new Error(`Sign out failed: ${error.message}`);
+    }
+
+    revalidatePath('/', 'layout');
+    
+  } catch (error) {
+    console.error("Error in signOut:", error);
+    throw error;
+  }
+  
+  redirect('/login');
 }
+
 
 export async function readUser() {
   const supabase = await createClient()
@@ -89,19 +137,6 @@ export async function readSession() {
   const supabase = await createClient()
   return await supabase.auth.getSession()
 }
-
-// export async function signUpWithEmailAndPassword (data: {
-//   email: string
-//   password: string
-//   confirm: string
-// }) {
-//   const supabase = await createClient()
-//   const result = await supabase.auth.signUp({
-//     email: data.email,
-//     password: data.password
-//   })
-//   return JSON.stringify(result)
-// }
 
 export async function signUpWithEmailAndPassword(data: {
   email: string
@@ -146,35 +181,65 @@ export async function signInWithEmailAndPassword (data: {
   return JSON.stringify(result)
 }
 
-// interface RegisterData {
-//   nombre: string;
-//   apellido: string;
-//   email: string;
-//   password: string;
-// }
 
-// export const registro = async (userData: RegisterData) => {
-//   const supabase = await createClient()
-
-//   const { data, error } = await supabase.auth.signUp({
-//     email: userData.email,
-//     password: userData.password
-//   })
-
-//   if (error || !data) {
-//     throw new Error("Ocurrio un error al registrarte")
-//   }
-
-//   if (data.user) {
-//     await registerUser({
-//       id: data.user.id,
-//       nombre: userData.nombre,
-//       apellido: userData.apellido,
-//       email: userData.email
-//     });
+export async function getAuthUser() {
+  try {
+    const supabase = await createClient();
+    const { data: { user }, error } = await supabase.auth.getUser();
     
-//     return redirect('/')
-//   }
-  
-//   throw new Error("Error registandote")
-// };
+    if (error) {
+      console.error("Error getting auth user:", error);
+      return { user: null, error };
+    }
+    
+    return { user, error: null };
+  } catch (error) {
+    console.error("Error in getAuthUser:", error);
+    return { user: null, error };
+  }
+}
+
+export async function getCompleteUserData() {
+  try {
+    const { user: authUser, error: authError } = await getAuthUser();
+    
+    if (authError || !authUser) {
+      return { 
+        authUser: null, 
+        userData: null, 
+        error: authError || new Error("No authenticated user") 
+      };
+    }
+
+    const { usuario: userData, error: userError } = await getUserData(authUser.id);
+    
+    if (userError || !userData) {
+      const fallbackUser = {
+        nombre: authUser.email?.split('@')[0] || 'Usuario',
+        avatar_url: '',
+        email: authUser.email || ''
+      };
+      
+      return { 
+        authUser, 
+        userData: fallbackUser, 
+        error: null,
+        isFallback: true 
+      };
+    }
+
+    return { 
+      authUser, 
+      userData, 
+      error: null,
+      isFallback: false 
+    };
+  } catch (error) {
+    console.error("Error in getCompleteUserData:", error);
+    return { 
+      authUser: null, 
+      userData: null, 
+      error: error as Error 
+    };
+  }
+}

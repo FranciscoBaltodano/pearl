@@ -19,16 +19,16 @@ import Procesos from './proceso';
 import Categorias from './categorias';
 import Lugares from './lugares';
 import Beneficios from './beneficios';
-import Navbar from './navbar';
 import Ayuda from './ayuda';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+// import Nav from './nav-server';
 
 export default function LandingPage() {
   const t = useTranslations('Landing');
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#d6ecd2] via-white to-[#d6ecd2]">
-      <Navbar/>
+      {/* <Nav/> */}
       <section id="inicio" className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#3f7ade]/10 to-[#18428c]/10 animate-pulse"></div>
         <div className="max-w-7xl mx-auto relative">

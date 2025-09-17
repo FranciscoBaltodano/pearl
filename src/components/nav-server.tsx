@@ -1,24 +1,21 @@
-
-import { readUser } from "@/api/server";
+import { getCompleteUserData } from "@/api/server";
 import Navbar from "./navbar";
-import { createClient } from "@/lib/supabase/server";
-
 
 export default async function Nav() {
-    const { data: { user } } = await readUser();
+    try {
+        const { authUser, userData,  isFallback } = await getCompleteUserData();
 
-    if (!user) {
+        if (!authUser || !userData) {
+            // console.log("No authenticated user found");
+            return <Navbar user={null} />;
+        }
+        if (isFallback) {
+        }
+
+        return <Navbar user={userData} />;
+        
+    } catch (error) {
+        console.error("Error in Nav component:", error);
         return <Navbar user={null} />;
     }
-
-    const supabase = await createClient();
-
-    const usuario = await supabase.from('usuarios').select('nombre, avatar_url').eq("id", user.id).single()
-
-    if ( !usuario) {
-        console.error("Error fetching user data");
-        return <Navbar user={null} />;
-    }
-
-    return <Navbar user={usuario.data} />;
 }

@@ -1,14 +1,13 @@
-
 'use client'
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button'
 import { Link,  usePathname } from '@/i18n/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 
 import React from "react";
 import LogoPearl from "./logo-pearl";
-import { Menu, X, Globe, LogOut, User, Tag, Store, ShoppingCart, Heart } from 'lucide-react';
+import { Menu, X, Globe, LogOut, User, Heart, Plane } from 'lucide-react';
 import { signOut } from '@/api/server';
 import { useRouter } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -35,6 +34,7 @@ export default function Navbar({ user }: { user: { nombre: string, avatar_url: s
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null)
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   
   const t = useTranslations('navbar');
   const locale = useLocale();
@@ -60,10 +60,42 @@ export default function Navbar({ user }: { user: { nombre: string, avatar_url: s
     setIsOpen(prev => !prev)
   }
 
+  const isLandingPage = pathname === "/"
+  const hiddenRoutes = ["/login", "/singup", "/forgot", "/reset", "/emailUpdated", "/administrador" , "/administrador/administradores", "/administrador/clientes", "/administrador/productos", "/payment-success"];
+
+  const isHidden = hiddenRoutes.includes(pathname);
+
   const currentLocale = locales.find(l => l.code === locale);
 
+  useEffect(() => {
+    if (!isLandingPage) return
+
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 1)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [isLandingPage])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside)
+    return () => { document.removeEventListener("click", handleClickOutside) }
+  }, [isOpen])
+
   return (
-    <div>
+    <header
+    className={`${isLandingPage
+      ? "bg-transparent fixed transition-colors duration-300 w-full"
+      : "bg-background shadow-md sticky"
+      } top-0 z-20 ${isScrolled ? "bg-white shadow-md text-gray-900" : ""} ${isHidden ? "hidden" : ""}`}
+    >
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-lg border-b border-[#3f7ade]/20 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -153,20 +185,22 @@ export default function Navbar({ user }: { user: { nombre: string, avatar_url: s
                   <Menu className="h-5 w-5 group-hover:text-custom-blue transition-colors" />
                 </Button>
                 {!user ? (
-                  <Button asChild variant="outline" className="border-[#3f7ade] text-[#3f7ade] hover:bg-[#3f7ade] hover:text-white transition-colors">
-                    <Link href="/login">
-                      {t('login')}
-                    </Link>
-                  </Button>
+                  <div>
+                    <Button asChild variant="outline" className="border-[#3f7ade] text-[#3f7ade] hover:bg-[#3f7ade] hover:text-white transition-colors">
+                      <Link href="/login">
+                        {t('login')}
+                      </Link>
+                    </Button>
+                    <Button className="bg-gradient-to-r from-[#3f7ade] to-[#18428c] hover:from-[#18428c] hover:to-[#3f7ade] text-white shadow-lg transition-all duration-300">
+                      <Link href="/singup">
+                        {t('start-free')}
+                      </Link>
+                    </Button>
+                  </div>
                 ) : (
                   <div className="relative inline-block text-left">
                     {/* Contenedor flex para alinear los botones y el avatar en una fila */}
                     <div className="flex items-center">
-                      <Button asChild variant="ghost" size="icon" className="group hover:text-custom-blue">
-                        <Link href="/trips">
-                          <ShoppingCart className="h-5 w-5 *:group-hover:text-custom-blue transition-colors" />
-                        </Link>
-                      </Button>
                       <Button asChild variant="ghost" size="icon" className="group hover:text-custom-blue mx-2">
                         <Link href="/wishlist">
                           <Heart className="h-5 w-5 *:group-hover:text-custom-blue transition-colors" />
@@ -209,20 +243,12 @@ export default function Navbar({ user }: { user: { nombre: string, avatar_url: s
                             Perfil
                           </Link>
                           <Link
-                            href="/trips"
-                            onClick={() => setIsOpen(false)}
-                            className="flex items-center px-2 py-2 text-sm text-green-600 hover:bg-gray-100 rounded-md transition-all duration-150 ease-in-out"
-                          >
-                            <Tag className="mr-2 h-4 w-4 text-green-500" />
-                            Publicar
-                          </Link>
-                          <Link
                             href="/wishlist"
                             onClick={() => setIsOpen(false)}
                             className="flex items-center px-2 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-md transition-all duration-150 ease-in-out"
                           >
-                            <Store className="mr-2 h-4 w-4" />
-                            Mis productos
+                            <Plane className="mr-2 h-4 w-4" />
+                            Mis Viajes
                           </Link>
                           <button
                             onClick={() => {
@@ -240,11 +266,6 @@ export default function Navbar({ user }: { user: { nombre: string, avatar_url: s
                   </div>
                 )}
               </div>
-              <Button className="bg-gradient-to-r from-[#3f7ade] to-[#18428c] hover:from-[#18428c] hover:to-[#3f7ade] text-white shadow-lg transition-all duration-300">
-                <Link href="/singup">
-                  {t('start-free')}
-                </Link>
-              </Button>
             </div>
 
             <button
@@ -340,6 +361,6 @@ export default function Navbar({ user }: { user: { nombre: string, avatar_url: s
           </div>
         )}
       </nav>
-    </div>
+    </header>
   );
 }

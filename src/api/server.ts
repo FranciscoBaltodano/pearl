@@ -158,7 +158,7 @@ export async function signUpWithEmailAndPassword(data: {
       password: data.password
     })
 
-    console.log('Resultado del signup:', { userCreate, errorUserCreate })
+    // console.log('Resultado del signup:', { userCreate, errorUserCreate })
 
     return { userCreate, errorUserCreate }
   } catch (error) {

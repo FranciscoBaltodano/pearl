@@ -44,6 +44,7 @@ export default function FormSingUp() {
       try {
         const { error: verifyError } = await verifyUser({ correo: data.correo })
         if (verifyError) {
+          console.error('❌ Error verificando usuario:', verifyError)
           toast.error(verifyError.message)
           return
         }
@@ -55,22 +56,27 @@ export default function FormSingUp() {
         })
         
         if (errorUserCreate) {
+          console.error('❌ Error en Auth:', errorUserCreate)
           toast.error(errorUserCreate.message)
           return
         }
 
         if (!userCreate?.user?.id) {
+          console.error('❌ No se obtuvo ID del usuario')
           toast.error('Error al crear usuario en la autenticación')
           return
         }
+
+        console.log('✅ Usuario creado en Auth:', userCreate)
+        await new Promise(resolve => setTimeout(resolve, 1000))
 
         if (data.nombre || data.apellido || data.telefono) {
           const {  errorUsuario } = await updateUsuario({ 
             id: userCreate.user.id,
             data: {
-              nombre: data.nombre,
-              apellido: data.apellido,
-              telefono: data.telefono
+              nombre: data.nombre
+              // apellido: data.apellido,
+              // telefono: data.telefono
             }
           })
 

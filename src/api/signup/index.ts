@@ -1,28 +1,34 @@
 import { supabase } from "@/lib/supabase"
+import { createClient } from "@/lib/supabase/client"
 
 
-export async function getUserByCorreo ({ correo }: { correo: string }) {
-  const { count: dataCorreo, error: errorCorreo } = await supabase
-    .from('usuarios')
-    .select('*', { count: 'exact', head: true })
-    .eq('correo', correo)
+// export async function getUserByCorreo ({ correo }: { correo: string }) {
+//   const supabase = createClient()
 
-  return { dataCorreo, errorCorreo }
-}
+//   const { count: dataCorreo, error: error } = await supabase
+//     .from('usuarios')
+//     .select('*', { count: 'exact', head: true })
+//     .eq('correo', correo)
+//     console.log(dataCorreo, errorCorreo)
+//   return { dataCorreo, errorCorreo }
+// }
 
 export async function verifyUser ({
   correo
 }: {
   correo: string
 }) {
-  const { dataCorreo, errorCorreo } = await getUserByCorreo({ correo })
+  const supabase = createClient()
 
-  if (errorCorreo) {
-    return { error: errorCorreo }
+  const { data, error } = await supabase.rpc('verify_pearl_user', {
+    user_email: correo 
+  })
+
+  if (error) {
+    return { error: error }
   }
 
-
-  if ((dataCorreo ?? 0) > 0) {
+  if (data > 0) {
     return { error: { message: 'El correo ya está registrado' } }
   }
 
@@ -59,12 +65,14 @@ export async function updateUsuario({
     telefono?: string | null
   }
 }) {
-  const { data: usuario, error: errorUsuario } = await supabase
-    .from('usuarios')
-    .update({ ...data })
-    .eq('id', id)
-    .select('*')
-    .single()
+  const supabase = createClient() // Crear instancia aquí
+  
+  const { data: usuario, error: errorUsuario } = await supabase.rpc('update_pearl_usuario', {
+    user_id: id,
+    user_nombre: data.nombre || null,
+    user_apellido: data.apellido || null,
+    user_telefono: data.telefono || null
+  })
   
   return { usuario, errorUsuario }
 }
@@ -76,11 +84,12 @@ export async function setRoleUser({
   id: string
   rol: number
 }) {
-  const { data, error } = await supabase
-    .from('usuarioXrol') 
-    .insert({ id_usuario: id, id_rol: rol })
-    .select('*')
-    .single()
+  const supabase = createClient()
+
+  const { data, error } = await supabase.rpc('set_pearl_user_role', {
+    user_id: id,
+    role_id: rol
+  })
 
   return { data, error }
 }

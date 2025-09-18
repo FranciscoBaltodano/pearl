@@ -1,13 +1,11 @@
 
 'use client';
 
-import { Calendar, ChevronLeft, ChevronRight, MapPin, Star } from 'lucide-react';
-import Image from 'next/image';
 import { useState } from 'react';
 import { MapPin, Calendar, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import HeroTitle from '@/components/title';
-import { AuroraBackground } from '@/components/ui/aurora-background';
+// import { AuroraBackground } from '@/components/ui/aurora-background';
 
 // Tipos
 interface SelectedTags {
@@ -239,11 +237,6 @@ export default function TourismGenerator() {
                             ? "border-blue-400 bg-blue-300/20 text-blue-600 shadow-md scale-105"
                             : "hover:border-blue-600/50 border-blue-300 hover:shadow-md hover:scale-105"
                         }`}
-                    onClick={() => setSelectedTags(prev => ({ ...prev, destination: dest.id }))}
-                    className={`p-3 rounded-lg border-2 transition-all ${selectedTags.destination === dest.id
-                        ? 'border-blue-500 bg-blue-50 text-blue-700'
-                        : 'border-gray-200 hover:border-blue-300'
-                      }`}
                   >
                     <span className="text-2xl block">{dest.icon}</span>
                     <span className="text-sm font-medium">{dest.label}</span>
@@ -281,32 +274,31 @@ export default function TourismGenerator() {
                     <span className="mt-2 text-sm font-medium tracking-wide">
                       {activity.label}
                     </span>
-                    className={`p-2 rounded-lg border-2 transition-all ${selectedTags.activities.includes(activity.id)
-                        ? 'border-green-500 bg-green-50 text-green-700'
-                        : 'border-gray-200 hover:border-green-300'
-                      }`}
-                  >
-                    <span className="text-lg block">{activity.icon}</span>
-                    <span className="text-xs font-medium">{activity.label}</span>
                   </button>
                 ))}
               </div>
             </div>
             {/* Opciones adicionales */}
             <div className="grid grid-cols-1 gap-4 mb-6">
-
-
-              
-              <div>  {/* ← Agregar este div completo */}
+              <div>
+                {" "}
+                {/* ← Agregar este div completo */}
                 <label className="block text-sm font-medium mb-2">País</label>
                 <select
                   value={selectedTags.country}
-                  onChange={(e) => setSelectedTags(prev => ({ ...prev, country: e.target.value }))}
-                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  onChange={(e) =>
+                    setSelectedTags((prev) => ({
+                      ...prev,
+                      country: e.target.value,
+                    }))
+                  }
+                  className="w-full p-2 border border-blue-400/50 rounded-lg"
                 >
                   <option value="">Seleccionar...</option>
-                  {countries.map(country => (
-                    <option key={country} value={country}>{country}</option>
+                  {countries.map((country) => (
+                    <option key={country} value={country}>
+                      {country}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -314,8 +306,6 @@ export default function TourismGenerator() {
                 <label className="block text-sm font-medium mb-2">
                   Duración
                 </label>
-                <select
-                <label className="block text-sm font-medium mb-2">Duración</label>
                 <select
                   value={selectedTags.duration}
                   onChange={(e) =>
@@ -325,8 +315,6 @@ export default function TourismGenerator() {
                     }))
                   }
                   className="w-full p-2 border border-blue-400/50 rounded-lg"
-                  onChange={(e) => setSelectedTags(prev => ({ ...prev, duration: e.target.value }))}
-                  className="w-full p-2 border border-gray-300 rounded-lg"
                 >
                   <option value="">Seleccionar...</option>
                   {durations.map((duration) => (
@@ -350,8 +338,6 @@ export default function TourismGenerator() {
                     }))
                   }
                   className="w-full p-2 border border-blue-400/50 rounded-lg"
-                  onChange={(e) => setSelectedTags(prev => ({ ...prev, budget: e.target.value }))}
-                  className="w-full p-2 border border-gray-300 rounded-lg"
                 >
                   <option value="">Seleccionar...</option>
                   {budgets.map((budget) => (
@@ -375,8 +361,6 @@ export default function TourismGenerator() {
                     }))
                   }
                   className="w-full p-2 border border-blue-400/50 rounded-lg"
-                  onChange={(e) => setSelectedTags(prev => ({ ...prev, travelers: e.target.value }))}
-                  className="w-full p-2 border border-gray-300 rounded-lg"
                 >
                   <option value="">Seleccionar...</option>
                   {travelerTypes.map((type) => (
@@ -386,9 +370,6 @@ export default function TourismGenerator() {
                   ))}
                 </select>
               </div>
-
-
-
             </div>
             <div className="flex gap-3">
               <button
@@ -399,7 +380,6 @@ export default function TourismGenerator() {
               >
                 {isLoading ? "🔄 Generando..." : "✨ Generar Recomendación"}
               </button>
-
 
               <button
                 onClick={resetSelection}
@@ -421,7 +401,7 @@ export default function TourismGenerator() {
             {!recommendation && !isLoading && (
               <div className="text-center text-gray-500 py-12">
                 <Calendar className="mx-auto mb-4 w-16 h-16 text-blue-900" />
-                <p className='text-blue-800/70'>
+                <p className="text-blue-800/70">
                   Selecciona tus preferencias y genera una recomendación
                   personalizada
                 </p>
@@ -441,7 +421,8 @@ export default function TourismGenerator() {
               <div className="space-y-6">
                 <div>
                   <h3 className="text-xl font-bold text-blue-700 mb-2">
-                    📍 Ruta Recomendada: {recommendation.destinoRecomendado.join(' → ')}
+                    📍 Ruta Recomendada:{" "}
+                    {recommendation.destinoRecomendado.join(" → ")}
                   </h3>
                   <p className="text-gray-700 leading-relaxed">
                     {recommendation.descripcion}
@@ -454,46 +435,58 @@ export default function TourismGenerator() {
                     <ImageCarousel images={recommendation.imagenesUrls} />
                   )}
                 {/* Mostrar carrusel principal solo para viajes cortos */}
-                {(!recommendation.itinerario || recommendation.itinerario.length === 0) && (
+                {(!recommendation.itinerario ||
+                  recommendation.itinerario.length === 0) && (
                   <ImageCarousel images={recommendation.imagenesUrls} />
                 )}
 
-                {recommendation.itinerario && recommendation.itinerario.length > 0 && (
-                  <div>
-                    <h4 className="font-semibold text-lg mb-3 flex items-center">
-                      🗓️ Itinerario por Días
-                    </h4>
-                    <div className="space-y-8">
-                      {recommendation.itinerario.map((dia, index) => (
-                        <div key={index} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                          <h5 className="font-medium text-blue-800 mb-3 text-lg">
-                            Día {dia.dia}: {dia.destino}
-                          </h5>
+                {recommendation.itinerario &&
+                  recommendation.itinerario.length > 0 && (
+                    <div>
+                      <h4 className="font-semibold text-lg mb-3 flex items-center">
+                        🗓️ Itinerario por Días
+                      </h4>
+                      <div className="space-y-8">
+                        {recommendation.itinerario.map((dia, index) => (
+                          <div
+                            key={index}
+                            className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm"
+                          >
+                            <h5 className="font-medium text-blue-800 mb-3 text-lg">
+                              Día {dia.dia}: {dia.destino}
+                            </h5>
 
-                          {/* Carrusel de imágenes para este destino específico */}
-                          {dia.imagenesUrls && dia.imagenesUrls.length > 0 && (
-                            <ImageCarousel
-                              images={dia.imagenesUrls}
-                              title={dia.destino}
-                            />
-                          )}
+                            {/* Carrusel de imágenes para este destino específico */}
+                            {dia.imagenesUrls &&
+                              dia.imagenesUrls.length > 0 && (
+                                <ImageCarousel
+                                  images={dia.imagenesUrls}
+                                  title={dia.destino}
+                                />
+                              )}
 
-                          <p className="text-gray-700 mb-3">{dia.descripcion}</p>
+                            <p className="text-gray-700 mb-3">
+                              {dia.descripcion}
+                            </p>
 
-                          <h6 className="font-medium text-gray-800 mb-2">Actividades:</h6>
-                          <ul className="space-y-2">
-                            {dia.actividades.map((actividad, idx) => (
-                              <li key={idx} className="flex items-start">
-                                <span className="text-blue-500 mr-2">•</span>
-                                <span className="text-gray-700">{actividad}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
+                            <h6 className="font-medium text-gray-800 mb-2">
+                              Actividades:
+                            </h6>
+                            <ul className="space-y-2">
+                              {dia.actividades.map((actividad, idx) => (
+                                <li key={idx} className="flex items-start">
+                                  <span className="text-blue-500 mr-2">•</span>
+                                  <span className="text-gray-700">
+                                    {actividad}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
                 <div>
                   <h4 className="font-semibold text-lg mb-3 flex items-center">
                     🎯 Actividades recomendadas
@@ -529,7 +522,6 @@ export default function TourismGenerator() {
                     </h5>
                     <p className="text-blue-700">{recommendation.mejorEpoca}</p>
                   </div>
-
 
                   <div className="bg-green-50 p-4 rounded-lg">
                     <h5 className="font-medium text-green-800">

@@ -1,6 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 // import ChatPage from './chat';
 import TourismGenerator from './generate';
+// import { AuroraBackground } from '@/components/ui/aurora-background';
 // import ChatStream from './chat';
 
 
@@ -15,12 +16,10 @@ export default async function Page({ params }: Props) {
 
     await setRequestLocale(locale);
 
-    return (
-        <div>
-            {/* <ChatPage /> */}
-            <TourismGenerator />
-            {/* <ChatStream /> */}
-        </div>
+  return (
+        // <AuroraBackground>
+          <TourismGenerator />
+        // </AuroraBackground>
     );
 }
 

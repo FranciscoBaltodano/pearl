@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { MapPin, Calendar, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import HeroTitle from '@/components/title';
+import { AuroraBackground } from '@/components/ui/aurora-background';
 
 // Tipos
 interface SelectedTags {
@@ -183,7 +184,7 @@ export default function TourismGenerator() {
   };
 
   return (
-    <main className="min-h-screen p-4 bg-[radial-gradient(circle_at_top,_theme(colors.indigo.50)_0%,_theme(colors.blue.300)_100%)]">
+    <main className="h-full w-full bg-[radial-gradient(circle_at_top,_theme(colors.indigo.50)_0%,_theme(colors.blue.300)_100%)]">
       <div className="max-w-4xl mx-auto">
         <HeroTitle />
         <div className="text-center mb-8">
@@ -192,10 +193,9 @@ export default function TourismGenerator() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8 pb-10">
           {/* Panel de Selección */}
           <div className="p-6 rounded-xl shadow-lg bg-gray-200/10 bg-clip-padding backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
-
             <h2 className="text-2xl font-semibold mb-6 flex items-center">
               <MapPin className="mr-2 text-blue-500" />
               Personaliza tu viaje
@@ -203,7 +203,7 @@ export default function TourismGenerator() {
             {/* Tipo de Destino */}
             <div className="mb-6">
               <h3 className="text-lg font-medium mb-3">Tipo de destino</h3>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-3">
                 {destinationTypes.map((dest) => (
                   <button
                     key={dest.id}
@@ -214,11 +214,12 @@ export default function TourismGenerator() {
                         destination: dest.id,
                       }))
                     }
-                    className={`p-3 rounded-lg border-2 transition-all ${
-                      selectedTags.destination === dest.id
-                        ? "border-blue-500 bg-blue-50 text-blue-700"
-                        : "border-gray-200 hover:border-blue-300"
-                    }`}
+                    className={`p-3 rounded-lg border-2 transition-all 
+                        ${
+                          selectedTags.destination === dest.id
+                            ? "border-blue-400 bg-blue-300/20 text-blue-600 shadow-md scale-105"
+                            : "hover:border-blue-600/50 border-blue-300 hover:shadow-md hover:scale-105"
+                        }`}
                   >
                     <span className="text-2xl block">{dest.icon}</span>
                     <span className="text-sm font-medium">{dest.label}</span>
@@ -240,8 +241,8 @@ export default function TourismGenerator() {
                     className={`flex flex-col items-center justify-center rounded-2xl border transition-all duration-300 shadow-sm
         ${
           selectedTags.activities.includes(activity.id)
-            ? "border-blue-400 bg-blue-50 text-blue-600 shadow-md scale-105"
-            : "border-gray-200 hover:border-blue-300 hover:shadow-md hover:scale-105"
+            ? "border-blue-400 bg-blue-300/20 text-blue-600 shadow-md scale-105"
+            : "hover:border-blue-600/50 border-blue-300 hover:shadow-md hover:scale-105"
         } p-4`}
                   >
                     <span
@@ -262,6 +263,9 @@ export default function TourismGenerator() {
             </div>
             {/* Opciones adicionales */}
             <div className="grid grid-cols-1 gap-4 mb-6">
+
+
+              
               <div>
                 <label className="block text-sm font-medium mb-2">
                   Duración
@@ -274,7 +278,7 @@ export default function TourismGenerator() {
                       duration: e.target.value,
                     }))
                   }
-                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  className="w-full p-2 border border-blue-400/50 rounded-lg"
                 >
                   <option value="">Seleccionar...</option>
                   {durations.map((duration) => (
@@ -297,7 +301,7 @@ export default function TourismGenerator() {
                       budget: e.target.value,
                     }))
                   }
-                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  className="w-full p-2 border border-blue-400/50 rounded-lg"
                 >
                   <option value="">Seleccionar...</option>
                   {budgets.map((budget) => (
@@ -320,7 +324,7 @@ export default function TourismGenerator() {
                       travelers: e.target.value,
                     }))
                   }
-                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  className="w-full p-2 border border-blue-400/50 rounded-lg"
                 >
                   <option value="">Seleccionar...</option>
                   {travelerTypes.map((type) => (
@@ -330,6 +334,9 @@ export default function TourismGenerator() {
                   ))}
                 </select>
               </div>
+
+
+
             </div>
             <div className="flex gap-3">
               <button
@@ -344,7 +351,7 @@ export default function TourismGenerator() {
               <button
                 onClick={resetSelection}
                 type="button"
-                className="px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                className="px-4 py-3 border rounded-lg hover:border-blue-600/50 border-blue-400/50 hover:shadow-md transition-all"
               >
                 🔄
               </button>
@@ -360,8 +367,8 @@ export default function TourismGenerator() {
 
             {!recommendation && !isLoading && (
               <div className="text-center text-gray-500 py-12">
-                <Calendar className="mx-auto mb-4 w-16 h-16 text-white" />
-                <p>
+                <Calendar className="mx-auto mb-4 w-16 h-16 text-blue-900" />
+                <p className='text-blue-800/70'>
                   Selecciona tus preferencias y genera una recomendación
                   personalizada
                 </p>

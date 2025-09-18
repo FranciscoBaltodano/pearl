@@ -12,7 +12,7 @@ import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { signIn } from "@/api/server";
 import { Loader2 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 type LoginFormType = z.infer<typeof loginFormSchema>;
 
@@ -133,7 +133,7 @@ export default function FormSingIn() {
             </div>
             <div className="pb-4">
               <Link
-                href="#"
+                href="/forgot-password"
                 className="text-sm text-[#18428C] hover:underline float-right"
               >
                 ¿Olvidaste tu contraseña?
@@ -162,7 +162,7 @@ export default function FormSingIn() {
                   className="w-full bg-white text-[#18428C] font-semibold py-2 px-4 rounded-lg transition duration-300 cursor-pointer border border-[#18428C] hover:bg-gray-50"
                   disabled={isPending}
                 >
-                  <Link href="/signup">
+                  <Link href="/singup">
                     Registrarse
                   </Link>
                 </Button>

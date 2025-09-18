@@ -17,7 +17,6 @@ export default async function Page({ params }: Props) {
 
     return (
         <div>
-            <h1 className="text-xl font-bold">Bienvenido a Pearl</h1>
             {/* <ChatPage /> */}
             <TourismGenerator />
             {/* <ChatStream /> */}

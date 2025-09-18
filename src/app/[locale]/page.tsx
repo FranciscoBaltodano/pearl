@@ -1,5 +1,6 @@
 
 import LandingPage from "@/components/landing";
+import Nav from "@/components/nav-server";
 import { setRequestLocale } from 'next-intl/server';
 
 type Props = {
@@ -15,6 +16,7 @@ export default async function Home({ params }: Props) {
 
   return (
     <div>
+      <Nav />
       <LandingPage />
     </div>
   );

@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 
 import "../globals.css";
 import { routing } from "@/i18n/routing";
-import Nav from "@/components/nav-server";
 import { Toaster } from "sonner";
 
 const geistSans = Geist({
@@ -42,7 +41,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider>
-          <Nav />
+          
           <Toaster />
           {children}
         </NextIntlClientProvider>

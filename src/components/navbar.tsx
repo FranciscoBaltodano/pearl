@@ -185,7 +185,7 @@ export default function Navbar({ user }: { user: { nombre: string, avatar_url: s
                   <Menu className="h-5 w-5 group-hover:text-custom-blue transition-colors" />
                 </Button>
                 {!user ? (
-                  <div>
+                  <div className='flex space-x-2'>
                     <Button asChild variant="outline" className="border-[#3f7ade] text-[#3f7ade] hover:bg-[#3f7ade] hover:text-white transition-colors">
                       <Link href="/login">
                         {t('login')}

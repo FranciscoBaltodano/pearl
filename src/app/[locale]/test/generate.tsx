@@ -450,7 +450,7 @@ export default function TourismGenerator() {
                         {recommendation.itinerario.map((dia, index) => (
                           <div
                             key={index}
-                            className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm"
+                            className="bg-white/10 border border-gray-200 rounded-lg p-6 shadow-sm"
                           >
                             <h5 className="font-medium text-blue-800 mb-3 text-lg">
                               Día {dia.dia}: {dia.destino}

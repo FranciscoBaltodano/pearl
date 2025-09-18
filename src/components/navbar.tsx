@@ -7,7 +7,7 @@ import { useTranslations, useLocale } from 'next-intl';
 
 import React from "react";
 import LogoPearl from "./logo-pearl";
-import { Menu, X, Globe, LogOut, User, Heart, Plane } from 'lucide-react';
+import { Menu, X, Globe, LogOut, User, Heart, Plane, Pin } from 'lucide-react';
 import { signOut } from '@/api/server';
 
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -253,6 +253,14 @@ export default function Navbar({ user }: { user: { nombre: string, avatar_url: s
                           >
                             <Plane className="mr-2 h-4 w-4" />
                             Mis Viajes
+                          </Link>
+                          <Link
+                            href="/test"
+                            onClick={() => setIsOpen(false)}
+                            className="flex items-center px-2 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-md transition-all duration-150 ease-in-out"
+                          >
+                            <Pin className="mr-2 h-4 w-4" />
+                            Generar Itinerario
                           </Link>
                           <button
                             onClick={() => {

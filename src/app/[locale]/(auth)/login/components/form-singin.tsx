@@ -12,6 +12,9 @@ import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { signIn } from "@/api/server";
 import { Loader2 } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
+import Autoplay from "embla-carousel-autoplay";
 import { Link } from "@/i18n/navigation";
 
 type LoginFormType = z.infer<typeof loginFormSchema>;
@@ -34,19 +37,19 @@ export default function FormSingIn() {
 
   function onSubmit(data: z.infer<typeof loginFormSchema>) {
     setServerError("");
-    
+
     startTransition(async () => {
       try {
         await signIn(data);
-        
+
         toast.success("¡Inicio de sesión exitoso!");
         window.location.href = '/';
-        
+
       } catch (error) {
         console.error("Login error:", error);
-        
+
         let errorMessage = "Error al iniciar sesión";
-        
+
         if (error instanceof Error) {
           if (error.message.includes("Invalid login credentials")) {
             errorMessage = "Credenciales inválidas. Verifica tu email y contraseña.";
@@ -58,7 +61,7 @@ export default function FormSingIn() {
             errorMessage = error.message;
           }
         }
-        
+
         setServerError(errorMessage);
         toast.error(errorMessage);
       }
@@ -67,7 +70,77 @@ export default function FormSingIn() {
 
   return (
     <div className="min-h-screen flex flex-row w-full">
-      <div className="w-1/2 hidden md:flex"></div>
+      <div className="w-1/2 hidden md:flex justify-center items-center">
+        <Carousel
+          plugins={[
+            Autoplay({
+              delay: 2000,
+            }),
+          ]}
+          className="w-full max-w-2xl pl-5"
+        >
+          <CarouselContent>
+            <CarouselItem key={1}>
+              <div className="p-1">
+                <Card className="bg-blue-900">
+                  <CardContent className="flex flex-col text-white aspect-square items-center justify-center p-6">
+                    <div className="flex flex-row items-center gap-2 mb-2">
+                      <span className="text-4xl">🛡️</span>
+                      <h3 className="text-4xl font-bold">
+                        Cobertura de Viajes
+                      </h3>
+                    </div>
+                    <p className="text-lg text-center opacity-90">
+                      Pólizas confiables para que viajes con total seguridad en
+                      cualquier parte del mundo.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </CarouselItem>
+
+            <CarouselItem key={2}>
+              <div className="p-1">
+                <Card className="bg-red-700">
+                  <CardContent className="flex flex-col text-white aspect-square items-center justify-center p-6">
+                    <div className="flex flex-row items-center gap-2 mb-2">
+                      <span className="text-4xl">📍</span>
+                      <h3 className="text-4xl font-bold">
+                        Recorridos Inteligentes
+                      </h3>
+                    </div>
+                    <p className="text-lg text-center opacity-90">
+                      Descubre sugerencias personalizadas de rutas y destinos,
+                      optimizadas para tu viaje.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </CarouselItem>
+
+            <CarouselItem key={3}>
+              <div className="p-1">
+                <Card className="bg-green-700">
+                  <CardContent className="flex flex-col text-white aspect-square items-center justify-center p-6">
+                    <div className="flex flex-row items-center gap-2 mb-2">
+                      <span className="text-4xl">💳</span>
+                      <h3 className="text-4xl font-bold">
+                        Beneficios Exclusivos
+                      </h3>
+                    </div>
+                    <p className="text-lg text-center opacity-90">
+                      Accede a descuentos, promociones y ventajas únicas por
+                      estar afiliado a PEARL.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </CarouselItem>
+          </CarouselContent>
+          {/* <CarouselPrevious /> */}
+          {/* <CarouselNext /> */}
+        </Carousel>
+      </div>
       {/* <div className="hidden md:flex w-1/2 bg-cover bg-gray-900 bg-opacity-50 bg-center bg-[url('https://kcjyuqaumdfgijiinuoa.supabase.co/storage/v1/object/public/images/landing/sing_in.webp')]"></div> */}
 
       <div className="w-full md:w-1/2 relative flex items-center justify-center">
@@ -78,7 +151,7 @@ export default function FormSingIn() {
               Bienvenido a <span className="font-bold">Pearl</span>
             </h1>
           </div>
-          
+
           {serverError && (
             <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg">
               {serverError}
@@ -100,7 +173,7 @@ export default function FormSingIn() {
                 autoComplete="email"
                 placeholder="Ingresa tu correo electrónico"
                 disabled={isPending}
-                {...register('email')}
+                {...register("email")}
               />
               {errors.email && (
                 <p className="text-xs italic text-red-500 mt-0">
@@ -123,7 +196,7 @@ export default function FormSingIn() {
                 autoComplete="current-password"
                 autoCorrect="off"
                 disabled={isPending}
-                {...register('password')}
+                {...register("password")}
               />
               {errors.password && (
                 <p className="text-xs italic text-red-500 mt-2">
@@ -141,9 +214,9 @@ export default function FormSingIn() {
             </div>
             <div className="m-10 flex flex-col gap-2">
               <div>
-                <Button 
+                <Button
                   type="submit"
-                  className="w-full bg-[#18428C] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#18428C]/90 transition duration-300 cursor-pointer disabled:opacity-50" 
+                  className="w-full bg-[#18428C] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#18428C]/90 transition duration-300 cursor-pointer disabled:opacity-50"
                   disabled={isPending}
                 >
                   {isPending && (
@@ -162,9 +235,7 @@ export default function FormSingIn() {
                   className="w-full bg-white text-[#18428C] font-semibold py-2 px-4 rounded-lg transition duration-300 cursor-pointer border border-[#18428C] hover:bg-gray-50"
                   disabled={isPending}
                 >
-                  <Link href="/singup">
-                    Registrarse
-                  </Link>
+                  <Link href="/singup">Registrarse</Link>
                 </Button>
               </div>
             </div>

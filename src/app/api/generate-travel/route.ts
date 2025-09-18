@@ -122,9 +122,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Faltan datos requeridos' }, { status: 400 });
     }
 
-    const isMultiDayTrip = selectedTags.duration === '3-5 días' || 
-                          selectedTags.duration === '1 semana' || 
-                          selectedTags.duration === '2+ semanas';
+    const isMultiDayTrip = selectedTags.duration === '2 días' || 
+                          selectedTags.duration === '3 días' || 
+                          selectedTags.duration === '4 días' || 
+                          selectedTags.duration === '5 días' || 
+                          selectedTags.duration === '1 semana';
 
     // Crear lista de exclusión
     const excluded = lastDestinations.length > 0 ? lastDestinations.join(', ') : 'ninguno';

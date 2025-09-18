@@ -133,7 +133,7 @@ export default function TourismGenerator() {
     { id: 'vida-nocturna', label: 'Vida Nocturna', icon: '🌙' }
   ];
 
-  const durations = ['1-2 días', '3-5 días', '1 semana', '2+ semanas'];
+  const durations = ['1 día', '2 días', '3 dias','3 dias', '4 dias', '5 dias', '1 semana'];
   const budgets = ['Económico', 'Medio', 'Premium', 'Lujo'];
   const travelerTypes = ['Solo', 'Pareja', 'Familia', 'Amigos', 'Grupo'];
   const countries = [

@@ -124,7 +124,7 @@ export async function signOut() {
     throw error;
   }
   
-  redirect('/login');
+  // redirect('/login');
 }
 
 

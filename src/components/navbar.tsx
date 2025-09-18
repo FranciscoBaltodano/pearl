@@ -2,14 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button'
-import { Link,  usePathname } from '@/i18n/navigation';
+import { Link,  usePathname, useRouter } from '@/i18n/navigation';
 import { useTranslations, useLocale } from 'next-intl';
 
 import React from "react";
 import LogoPearl from "./logo-pearl";
 import { Menu, X, Globe, LogOut, User, Heart, Plane } from 'lucide-react';
 import { signOut } from '@/api/server';
-import { useRouter } from 'next/navigation';
+
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -51,8 +51,12 @@ export default function Navbar({ user }: { user: { nombre: string, avatar_url: s
   };
 
   const handleLogout = async () => {
-    await signOut()
-    router.push('/')
+    try {
+      await signOut();
+      router.push(`/login`);
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   }
 
   const handleToggle = (event: React.MouseEvent) => {

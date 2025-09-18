@@ -7,8 +7,27 @@
       "testimonials": "Testimonios",
       "login": "Iniciar Sesión",
       "start-free": "Comenzar Gratis",
-      "language": "Idioma"
+      "language": "Idioma",
+      "profile": "Perfil",
+      "my_trips": "Mis Viajes",
+      "logout": "Cerrar Sesión"
 },
+"singup": {
+    "title": "Registrate en",
+    "name_label": "Nombre",
+    "name_placeholder": "Ingresa tu nombre completo",
+    "email_label": "Correo Electrónico",
+    "email_placeholder": "Ingresa tu correo electrónico",
+    "password_label": "Contraseña",
+    "password_placeholder": "Ingresa tu contraseña",
+    "confirm_password_label": "Confirmar Contraseña",
+    "confirm_password_placeholder": "Ingresa tu contraseña nuevamente",
+    "register_button": "Registrarse",
+    "already_have_account": "¿Ya tienes una cuenta?",
+    "login_button": "Iniciar Sesión",
+    "success_message": "Usuario creado exitosamente. Revisa tu correo para confirmar tu cuenta.",
+    "error_message": "Error inesperado durante el registro"
+  },
   "Landing": {
     "title": "Bienvenido",
     "subtitle": "Viajes Únicos con",

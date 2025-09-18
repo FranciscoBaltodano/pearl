@@ -11,7 +11,7 @@ import z from "zod";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { signIn } from "@/api/server";
-import { SplineIcon } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import Link from "next/link";
 
 type LoginFormType = z.infer<typeof loginFormSchema>;
@@ -147,7 +147,7 @@ export default function FormSingIn() {
                   disabled={isPending}
                 >
                   {isPending && (
-                    <SplineIcon className="mr-2 h-4 w-4 animate-spin" />
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   )}
                   {isPending ? "Iniciando sesión..." : "Iniciar sesión"}
                 </Button>

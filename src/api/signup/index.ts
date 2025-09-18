@@ -1,17 +1,5 @@
-import { supabase } from "@/lib/supabase"
+// import { supabase } from "@/lib/supabase"
 import { createClient } from "@/lib/supabase/client"
-
-
-// export async function getUserByCorreo ({ correo }: { correo: string }) {
-//   const supabase = createClient()
-
-//   const { count: dataCorreo, error: error } = await supabase
-//     .from('usuarios')
-//     .select('*', { count: 'exact', head: true })
-//     .eq('correo', correo)
-//     console.log(dataCorreo, errorCorreo)
-//   return { dataCorreo, errorCorreo }
-// }
 
 export async function verifyUser ({
   correo
@@ -34,25 +22,6 @@ export async function verifyUser ({
 
   return { error: null }
 }
-
-
-// export async function createUsuario ({ data }: { data: UsuariosInsert }) {
-//   const { data: usuario, error: errorUsuario } = await supabase
-//     .from('usuarios')
-//     .insert({ ...data })
-//     .select('*')
-//     .single()
-//   return { usuario, errorUsuario }
-// }
-
-// export async function createUsuario ({ data }: { data: UsuariosCreate }) {
-//   const { data: usuario, error: errorUsuario } = await supabase
-//     .from('usuarios')
-//     .insert({ ...data })
-//     .select('*')
-//     .single()
-//   return { usuario, errorUsuario }
-// }
 
 export async function updateUsuario({ 
   id, 
@@ -95,14 +64,32 @@ export async function setRoleUser({
 }
 
 
-export async function getUserData (userId: string) {
-  const { data: usuario, error } = await supabase
-    .from('usuarios')
-    .select('nombre, avatar_url')
-    .eq("id", userId)
-    .single();
+// export async function getUserData (userId: string) {
+//   const { data: usuario, error } = await supabase
+//     .from('usuarios')
+//     .select('nombre, avatar_url')
+//     .eq("id", userId)
+//     .single();
 
-    console.log(usuario)
+//     console.log(usuario)
 
-  return { usuario, error }
+//   return { usuario, error }
+// }
+
+
+export async function getUserData(userId: string) {
+  const supabase = createClient()
+
+  const { data, error } = await supabase.rpc("get_user", {
+    user_id: userId
+  })
+
+  if (error) {
+    console.error("Error obteniendo usuario:", error)
+    return { usuario: null, error }
+  }
+
+  const usuario = data && data.length > 0 ? data[0] : null
+
+  return { usuario, error: null }
 }

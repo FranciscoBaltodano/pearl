@@ -8,7 +8,26 @@
       "testimonials": "Testimonials",
       "login": "Login",
       "start-free": "Start Free",
-      "language": "Language"
+      "language": "Language",
+      "profile": "Profile",
+      "my_trips": "My Trips",
+      "logout": "Logout"
+  },
+  "singup": {
+    "title": "Sign up for",
+    "name_label": "Name",
+    "name_placeholder": "Enter your full name",
+    "email_label": "Email",
+    "email_placeholder": "Enter your email address",
+    "password_label": "Password",
+    "password_placeholder": "Enter your password",
+    "confirm_password_label": "Confirm Password",
+    "confirm_password_placeholder": "Enter your password again",
+    "register_button": "Sign Up",
+    "already_have_account": "Already have an account?",
+    "login_button": "Log In",
+    "success_message": "User created successfully. Check your email to confirm your account.",
+    "error_message": "Unexpected error during registration"
   },
   "Landing": {
     "title": "Hello world!",

@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { MapPin, Calendar, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
+import HeroTitle from '@/components/title';
 
 // Tipos
 interface SelectedTags {
@@ -51,7 +52,7 @@ function ImageCarousel({ images }: { images: string[] }) {
             (e.currentTarget as HTMLImageElement).src = 'https://media.istockphoto.com/vectors/sorry-vector-id1018127028?k=20&m=1018127028&s=612x612&w=0&h=d8Yv_MyoOsYgLsJqU51IsLrn_WvN1w8eMLvtZaHQz10=';
           }}
         />
-        
+
         {/* Controles del carrusel */}
         {images.length > 1 && (
           <>
@@ -61,7 +62,7 @@ function ImageCarousel({ images }: { images: string[] }) {
             >
               <ChevronLeft size={20} />
             </button>
-            
+
             <button
               onClick={nextImage}
               className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all"
@@ -77,14 +78,13 @@ function ImageCarousel({ images }: { images: string[] }) {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                currentIndex === index ? 'bg-white' : 'bg-white bg-opacity-50'
-              }`}
+              className={`w-2 h-2 rounded-full transition-all ${currentIndex === index ? 'bg-white' : 'bg-white bg-opacity-50'
+                }`}
             />
           ))}
         </div>
       </div>
-      
+
       {/* Contador */}
       <div className="text-center mt-2 text-sm text-gray-500">
         {currentIndex + 1} de {images.length}
@@ -145,14 +145,14 @@ export default function TourismGenerator() {
     }
 
     setIsLoading(true);
-    
+
     try {
       const response = await fetch('/api/generate-travel', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           selectedTags
         }),
       });
@@ -183,36 +183,41 @@ export default function TourismGenerator() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <main className="min-h-screen p-4 bg-[radial-gradient(circle_at_top,_theme(colors.indigo.50)_0%,_theme(colors.blue.300)_100%)]">
       <div className="max-w-4xl mx-auto">
+        <HeroTitle />
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
-            🌍 Generador de Viajes IA
-          </h1>
-          <p className="text-gray-600">Selecciona tus preferencias y recibe recomendaciones personalizadas</p>
+          <p className="text-gray-600">
+            Selecciona tus preferencias y recibe recomendaciones personalizadas
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Panel de Selección */}
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="p-6 rounded-xl shadow-lg bg-gray-200/10 bg-clip-padding backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
+
             <h2 className="text-2xl font-semibold mb-6 flex items-center">
               <MapPin className="mr-2 text-blue-500" />
               Personaliza tu viaje
             </h2>
-
             {/* Tipo de Destino */}
             <div className="mb-6">
               <h3 className="text-lg font-medium mb-3">Tipo de destino</h3>
               <div className="grid grid-cols-2 gap-2">
-                {destinationTypes.map(dest => (
+                {destinationTypes.map((dest) => (
                   <button
                     key={dest.id}
                     type="button"
-                    onClick={() => setSelectedTags(prev => ({...prev, destination: dest.id}))}
+                    onClick={() =>
+                      setSelectedTags((prev) => ({
+                        ...prev,
+                        destination: dest.id,
+                      }))
+                    }
                     className={`p-3 rounded-lg border-2 transition-all ${
-                      selectedTags.destination === dest.id 
-                        ? 'border-blue-500 bg-blue-50 text-blue-700' 
-                        : 'border-gray-200 hover:border-blue-300'
+                      selectedTags.destination === dest.id
+                        ? "border-blue-500 bg-blue-50 text-blue-700"
+                        : "border-gray-200 hover:border-blue-300"
                     }`}
                   >
                     <span className="text-2xl block">{dest.icon}</span>
@@ -221,74 +226,111 @@ export default function TourismGenerator() {
                 ))}
               </div>
             </div>
-
             {/* Actividades */}
             <div className="mb-6">
-              <h3 className="text-lg font-medium mb-3">Actividades de interés</h3>
-              <div className="grid grid-cols-2 gap-2">
-                {activities.map(activity => (
+              <h3 className="text-lg font-medium mb-3">
+                Actividades de interés
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                {activities.map((activity) => (
                   <button
                     key={activity.id}
                     type="button"
                     onClick={() => handleActivityToggle(activity.id)}
-                    className={`p-2 rounded-lg border-2 transition-all ${
-                      selectedTags.activities.includes(activity.id)
-                        ? 'border-green-500 bg-green-50 text-green-700' 
-                        : 'border-gray-200 hover:border-green-300'
-                    }`}
+                    className={`flex flex-col items-center justify-center rounded-2xl border transition-all duration-300 shadow-sm
+        ${
+          selectedTags.activities.includes(activity.id)
+            ? "border-blue-400 bg-blue-50 text-blue-600 shadow-md scale-105"
+            : "border-gray-200 hover:border-blue-300 hover:shadow-md hover:scale-105"
+        } p-4`}
                   >
-                    <span className="text-lg block">{activity.icon}</span>
-                    <span className="text-xs font-medium">{activity.label}</span>
+                    <span
+                      className={`text-2xl transition-transform duration-300 ${
+                        selectedTags.activities.includes(activity.id)
+                          ? "scale-110"
+                          : "group-hover:scale-110"
+                      }`}
+                    >
+                      {activity.icon}
+                    </span>
+                    <span className="mt-2 text-sm font-medium tracking-wide">
+                      {activity.label}
+                    </span>
                   </button>
                 ))}
               </div>
             </div>
-
             {/* Opciones adicionales */}
             <div className="grid grid-cols-1 gap-4 mb-6">
               <div>
-                <label className="block text-sm font-medium mb-2">Duración</label>
-                <select 
+                <label className="block text-sm font-medium mb-2">
+                  Duración
+                </label>
+                <select
                   value={selectedTags.duration}
-                  onChange={(e) => setSelectedTags(prev => ({...prev, duration: e.target.value}))}
+                  onChange={(e) =>
+                    setSelectedTags((prev) => ({
+                      ...prev,
+                      duration: e.target.value,
+                    }))
+                  }
                   className="w-full p-2 border border-gray-300 rounded-lg"
                 >
                   <option value="">Seleccionar...</option>
-                  {durations.map(duration => (
-                    <option key={duration} value={duration}>{duration}</option>
+                  {durations.map((duration) => (
+                    <option key={duration} value={duration}>
+                      {duration}
+                    </option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Presupuesto</label>
-                <select 
+                <label className="block text-sm font-medium mb-2">
+                  Presupuesto
+                </label>
+                <select
                   value={selectedTags.budget}
-                  onChange={(e) => setSelectedTags(prev => ({...prev, budget: e.target.value}))}
+                  onChange={(e) =>
+                    setSelectedTags((prev) => ({
+                      ...prev,
+                      budget: e.target.value,
+                    }))
+                  }
                   className="w-full p-2 border border-gray-300 rounded-lg"
                 >
                   <option value="">Seleccionar...</option>
-                  {budgets.map(budget => (
-                    <option key={budget} value={budget}>{budget}</option>
+                  {budgets.map((budget) => (
+                    <option key={budget} value={budget}>
+                      {budget}
+                    </option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Tipo de viajero</label>
-                <select 
+                <label className="block text-sm font-medium mb-2">
+                  Tipo de viajero
+                </label>
+                <select
                   value={selectedTags.travelers}
-                  onChange={(e) => setSelectedTags(prev => ({...prev, travelers: e.target.value}))}
+                  onChange={(e) =>
+                    setSelectedTags((prev) => ({
+                      ...prev,
+                      travelers: e.target.value,
+                    }))
+                  }
                   className="w-full p-2 border border-gray-300 rounded-lg"
                 >
                   <option value="">Seleccionar...</option>
-                  {travelerTypes.map(type => (
-                    <option key={type} value={type}>{type}</option>
+                  {travelerTypes.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
                   ))}
                 </select>
               </div>
             </div>
-
             <div className="flex gap-3">
               <button
                 onClick={generateRecommendation}
@@ -296,9 +338,9 @@ export default function TourismGenerator() {
                 type="button"
                 className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
               >
-                {isLoading ? '🔄 Generando...' : '✨ Generar Recomendación'}
+                {isLoading ? "🔄 Generando..." : "✨ Generar Recomendación"}
               </button>
-              
+
               <button
                 onClick={resetSelection}
                 type="button"
@@ -310,7 +352,7 @@ export default function TourismGenerator() {
           </div>
 
           {/* Panel de Resultados */}
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          <div className="p-6 rounded-xl shadow-lg bg-gray-200/10 bg-clip-padding backdrop-filter backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100">
             <h2 className="text-2xl font-semibold mb-6 flex items-center">
               <Star className="mr-2 text-yellow-500" />
               Tu recomendación
@@ -318,15 +360,20 @@ export default function TourismGenerator() {
 
             {!recommendation && !isLoading && (
               <div className="text-center text-gray-500 py-12">
-                <Calendar className="mx-auto mb-4 w-16 h-16 text-gray-300" />
-                <p>Selecciona tus preferencias y genera una recomendación personalizada</p>
+                <Calendar className="mx-auto mb-4 w-16 h-16 text-white" />
+                <p>
+                  Selecciona tus preferencias y genera una recomendación
+                  personalizada
+                </p>
               </div>
             )}
 
             {isLoading && (
               <div className="text-center py-12">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                <p className="text-gray-600">Creando tu recomendación perfecta...</p>
+                <p className="text-gray-600">
+                  Creando tu recomendación perfecta...
+                </p>
               </div>
             )}
 
@@ -342,9 +389,10 @@ export default function TourismGenerator() {
                 </div>
 
                 {/* Carrusel de imágenes */}
-                {recommendation.imagenesUrls && recommendation.imagenesUrls.length > 0 && (
-                  <ImageCarousel images={recommendation.imagenesUrls} />
-                )}
+                {recommendation.imagenesUrls &&
+                  recommendation.imagenesUrls.length > 0 && (
+                    <ImageCarousel images={recommendation.imagenesUrls} />
+                  )}
 
                 <div>
                   <h4 className="font-semibold text-lg mb-3 flex items-center">
@@ -376,13 +424,19 @@ export default function TourismGenerator() {
 
                 <div className="grid grid-cols-1 gap-4 pt-4 border-t">
                   <div className="bg-blue-50 p-4 rounded-lg">
-                    <h5 className="font-medium text-blue-800">🗓️ Mejor época</h5>
+                    <h5 className="font-medium text-blue-800">
+                      🗓️ Mejor época
+                    </h5>
                     <p className="text-blue-700">{recommendation.mejorEpoca}</p>
                   </div>
-                  
+
                   <div className="bg-green-50 p-4 rounded-lg">
-                    <h5 className="font-medium text-green-800">💰 Presupuesto estimado</h5>
-                    <p className="text-green-700">{recommendation.presupuestoEstimado}</p>
+                    <h5 className="font-medium text-green-800">
+                      💰 Presupuesto estimado
+                    </h5>
+                    <p className="text-green-700">
+                      {recommendation.presupuestoEstimado}
+                    </p>
                   </div>
                 </div>
               </div>

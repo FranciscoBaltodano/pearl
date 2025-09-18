@@ -19,15 +19,16 @@ import Procesos from './proceso';
 import Categorias from './categorias';
 import Lugares from './lugares';
 import Beneficios from './beneficios';
-import Navbar from './navbar';
 import Ayuda from './ayuda';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+// import Nav from './nav-server';
 
 export default function LandingPage() {
   const t = useTranslations('Landing');
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#d6ecd2] via-white to-[#d6ecd2]">
-      <Navbar/>
+      {/* <Nav/> */}
       <section id="inicio" className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#3f7ade]/10 to-[#18428c]/10 animate-pulse"></div>
         <div className="max-w-7xl mx-auto relative">
@@ -52,7 +53,9 @@ export default function LandingPage() {
                 className="bg-gradient-to-r from-[#3f7ade] to-[#18428c] hover:from-[#18428c] hover:to-[#3f7ade] text-white text-xl px-12 py-6 h-auto group shadow-2xl transform hover:scale-105 transition-all duration-300"
               >
                 <Play className="w-6 h-6 mr-3" />
-                {t('planButton')}
+                  <Link href="/test">
+                    {t('planButton')}
+                  </Link>
                 <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform" />
               </Button>
               <Button 
@@ -90,7 +93,7 @@ export default function LandingPage() {
         <div className="absolute top-64 right-16 w-32 h-32 bg-gradient-to-r from-[#d6ecd2]/50 to-[#3f7ade]/30 rounded-full blur-xl animate-pulse delay-1000"></div>
         <div className="absolute bottom-20 left-1/4 w-20 h-20 bg-gradient-to-r from-[#18428c]/30 to-[#3f7ade]/30 rounded-full blur-xl animate-pulse delay-500"></div>
       </section>
-
+      <section>
       <Beneficios/>
       <Lugares/>
       <Categorias/>
@@ -100,6 +103,8 @@ export default function LandingPage() {
       <Planes/>
       <Ayuda/>
       <Footer/>
+      </section>
+   
     </div>
   );
 }

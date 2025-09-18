@@ -1,4 +1,14 @@
 {
+  "navbar": {
+      "home": "Inicio",
+      "features": "Características",
+      "destinations": "Destinos",
+      "how-it-works": "Cómo Funciona",
+      "testimonials": "Testimonios",
+      "login": "Iniciar Sesión",
+      "start-free": "Comenzar Gratis",
+      "language": "Idioma"
+},
   "Landing": {
     "title": "Hola Papus!",
     "subtitle": "Viajes Únicos con",

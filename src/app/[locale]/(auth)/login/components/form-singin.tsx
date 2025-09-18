@@ -67,7 +67,7 @@ export default function FormSingIn() {
 
   return (
     <div className="min-h-screen flex flex-row w-full">
-      <div className="w-1/2 hidden md:flex">imagen de fondo</div>
+      <div className="w-1/2 hidden md:flex"></div>
       {/* <div className="hidden md:flex w-1/2 bg-cover bg-gray-900 bg-opacity-50 bg-center bg-[url('https://kcjyuqaumdfgijiinuoa.supabase.co/storage/v1/object/public/images/landing/sing_in.webp')]"></div> */}
 
       <div className="w-full md:w-1/2 relative flex items-center justify-center">

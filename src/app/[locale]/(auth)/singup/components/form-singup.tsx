@@ -120,7 +120,7 @@ export default function FormSingUp() {
 
   return (
     <div className="min-h-screen flex flex-row w-full">
-      <div className="w-1/2 hidden md:flex">imagen de fondo</div>
+      <div className="w-1/2 hidden md:flex"></div>
 
       <div className="w-full md:w-1/2 relative flex items-center justify-center">
         <div className="w-full max-w-md p-8 z-10">

@@ -13,9 +13,8 @@ import { toast } from "sonner";
 import { setRoleUser, updateUsuario, verifyUser } from "@/api/signup";
 import { signUpWithEmailAndPassword } from "@/api/server";
 import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import {  useTranslations } from "next-intl";
+import { Link, useRouter } from "@/i18n/navigation";
 // import { usePathname } from "@/i18n/navigation";
 
 
@@ -25,7 +24,7 @@ export default function FormSingUp() {
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
   const t = useTranslations('singup');
-  const locale = useLocale();
+  // const locale = useLocale();
   // const pathname = usePathname();
 
   const {
@@ -110,7 +109,7 @@ export default function FormSingUp() {
         toast.success(t('success_message'))
         
         // Redirigir a login con el locale actual
-        router.push(`/${locale}/login`)
+        router.push('/')
         
       } catch (error) {
         console.error('Error en el registro:', error)

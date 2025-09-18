@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 
 import "../globals.css";
 import { routing } from "@/i18n/routing";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,7 +40,11 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          
+          <Toaster />
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

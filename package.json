@@ -7,12 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gen-types": "npx supabase gen types typescript --project-id kcjyuqaumdfgijiinuoa --schema public >src/lib/database.types.ts"
+    "gen-types": "npx supabase gen types typescript --project-id kcjyuqaumdfgijiinuoa --schema pearl >src/lib/database.types.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^2.0.2",
     "@google/generative-ai": "^0.24.1",
+    "@hookform/resolvers": "^5.2.2",
     "@nanostores/react": "github:ai/react",
+    "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-checkbox": "^1.3.2",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
@@ -21,12 +23,15 @@
     "ai": "^5.0.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.23.12",
     "lucide-react": "^0.511.0",
     "next": "^15.5.2",
     "next-intl": "^4.3.4",
     "openai": "5.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.62.0",
+    "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.0",
     "unsplash-js": "^7.0.19",
     "zod": "^3.25.76"

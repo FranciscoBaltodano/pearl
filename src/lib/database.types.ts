@@ -7,397 +7,487 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
+    PostgrestVersion: "12.2.12 (cd3cf9e)"
   }
-  public: {
+  pearl: {
     Tables: {
-      beneficios: {
+      actividad: {
         Row: {
+          creado: string
           descripcion: string | null
-          empleado_id: number | null
           id: number
-          tipo_beneficio: string | null
-          valor: number | null
         }
         Insert: {
+          creado?: string
           descripcion?: string | null
-          empleado_id?: number | null
-          id?: never
-          tipo_beneficio?: string | null
-          valor?: number | null
+          id?: number
         }
         Update: {
+          creado?: string
           descripcion?: string | null
-          empleado_id?: number | null
-          id?: never
-          tipo_beneficio?: string | null
-          valor?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "beneficios_empleado_id_fkey"
-            columns: ["empleado_id"]
-            isOneToOne: false
-            referencedRelation: "empleados"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      deducciones_fiscales: {
-        Row: {
-          empresa_id: number | null
-          fecha_aplicacion: string | null
-          id: number
-          monto_deduccion: number | null
-          tipo_deduccion: string | null
-          transaccion_id: number | null
-        }
-        Insert: {
-          empresa_id?: number | null
-          fecha_aplicacion?: string | null
-          id?: never
-          monto_deduccion?: number | null
-          tipo_deduccion?: string | null
-          transaccion_id?: number | null
-        }
-        Update: {
-          empresa_id?: number | null
-          fecha_aplicacion?: string | null
-          id?: never
-          monto_deduccion?: number | null
-          tipo_deduccion?: string | null
-          transaccion_id?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "deducciones_fiscales_empresa_id_fkey"
-            columns: ["empresa_id"]
-            isOneToOne: false
-            referencedRelation: "empresas"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "deducciones_fiscales_transaccion_id_fkey"
-            columns: ["transaccion_id"]
-            isOneToOne: false
-            referencedRelation: "transacciones"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      documents: {
-        Row: {
-          content: string | null
-          embedding: string | null
-          id: number
-          metadata: Json | null
-        }
-        Insert: {
-          content?: string | null
-          embedding?: string | null
           id?: number
-          metadata?: Json | null
-        }
-        Update: {
-          content?: string | null
-          embedding?: string | null
-          id?: number
-          metadata?: Json | null
         }
         Relationships: []
       }
-      empleados: {
+      actividad_categoria: {
         Row: {
-          apellido: string | null
-          email: string | null
-          empresa_id: number | null
-          fecha_contratacion: string | null
+          id_actividad: number
+          id_categoria: number
+        }
+        Insert: {
+          id_actividad?: number
+          id_categoria?: number
+        }
+        Update: {
+          id_actividad?: number
+          id_categoria?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "actividad_categoria_id_actividad_fkey"
+            columns: ["id_actividad"]
+            isOneToOne: false
+            referencedRelation: "actividad"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "actividad_categoria_id_categoria_fkey"
+            columns: ["id_categoria"]
+            isOneToOne: false
+            referencedRelation: "categoria"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      afiliados: {
+        Row: {
+          actualizado_en: string | null
+          creado_en: string | null
+          descripcion: string | null
+          descuento: string | null
+          id: number
+          id_usuario: string | null
+          latitud: number
+          longitud: number
+          nombre: string
+        }
+        Insert: {
+          actualizado_en?: string | null
+          creado_en?: string | null
+          descripcion?: string | null
+          descuento?: string | null
+          id?: number
+          id_usuario?: string | null
+          latitud: number
+          longitud: number
+          nombre: string
+        }
+        Update: {
+          actualizado_en?: string | null
+          creado_en?: string | null
+          descripcion?: string | null
+          descuento?: string | null
+          id?: number
+          id_usuario?: string | null
+          latitud?: number
+          longitud?: number
+          nombre?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "afiliados_id_usuario_fkey"
+            columns: ["id_usuario"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      analiticas: {
+        Row: {
+          accion: string
+          id: number
+          id_usuario: string | null
+          timestamp: string | null
+        }
+        Insert: {
+          accion: string
+          id?: number
+          id_usuario?: string | null
+          timestamp?: string | null
+        }
+        Update: {
+          accion?: string
+          id?: number
+          id_usuario?: string | null
+          timestamp?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analiticas_id_usuario_fkey"
+            columns: ["id_usuario"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      categoria: {
+        Row: {
+          creado: string
           id: number
           nombre: string | null
-          puesto: string | null
-          salario: number | null
-          telefono: string | null
         }
         Insert: {
-          apellido?: string | null
-          email?: string | null
-          empresa_id?: number | null
-          fecha_contratacion?: string | null
-          id?: never
+          creado?: string
+          id?: number
           nombre?: string | null
-          puesto?: string | null
-          salario?: number | null
-          telefono?: string | null
         }
         Update: {
-          apellido?: string | null
-          email?: string | null
-          empresa_id?: number | null
-          fecha_contratacion?: string | null
-          id?: never
+          creado?: string
+          id?: number
           nombre?: string | null
-          puesto?: string | null
-          salario?: number | null
-          telefono?: string | null
+        }
+        Relationships: []
+      }
+      direcciones: {
+        Row: {
+          calle: string
+          ciudad: string
+          codigo_postal: string
+          estado: string
+          id: number
+          pais: string
+          tipo_direccion: string
+        }
+        Insert: {
+          calle: string
+          ciudad: string
+          codigo_postal: string
+          estado: string
+          id?: never
+          pais: string
+          tipo_direccion: string
+        }
+        Update: {
+          calle?: string
+          ciudad?: string
+          codigo_postal?: string
+          estado?: string
+          id?: never
+          pais?: string
+          tipo_direccion?: string
+        }
+        Relationships: []
+      }
+      favoritos: {
+        Row: {
+          created_at: string
+          descripcion: string | null
+          id: number
+          id_lugar: number | null
+          id_usuario: string | null
+        }
+        Insert: {
+          created_at?: string
+          descripcion?: string | null
+          id?: number
+          id_lugar?: number | null
+          id_usuario?: string | null
+        }
+        Update: {
+          created_at?: string
+          descripcion?: string | null
+          id?: number
+          id_lugar?: number | null
+          id_usuario?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "empleados_empresa_id_fkey"
-            columns: ["empresa_id"]
+            foreignKeyName: "favoritos_id_usuario_fkey"
+            columns: ["id_usuario"]
             isOneToOne: false
-            referencedRelation: "empresas"
+            referencedRelation: "usuarios"
             referencedColumns: ["id"]
           },
         ]
       }
-      empresas: {
+      historial_pagos: {
         Row: {
-          fecha_registro: string | null
-          id: number
-          nombre: string | null
-          sector: string | null
-          tipo: string | null
-        }
-        Insert: {
-          fecha_registro?: string | null
-          id?: never
-          nombre?: string | null
-          sector?: string | null
-          tipo?: string | null
-        }
-        Update: {
-          fecha_registro?: string | null
-          id?: never
-          nombre?: string | null
-          sector?: string | null
-          tipo?: string | null
-        }
-        Relationships: []
-      }
-      evaluaciones: {
-        Row: {
-          calificacion: number | null
-          comentarios: string | null
-          empleado_id: number | null
-          evaluador: string | null
-          fecha: string | null
-          id: number
-        }
-        Insert: {
-          calificacion?: number | null
-          comentarios?: string | null
-          empleado_id?: number | null
-          evaluador?: string | null
-          fecha?: string | null
-          id?: never
-        }
-        Update: {
-          calificacion?: number | null
-          comentarios?: string | null
-          empleado_id?: number | null
-          evaluador?: string | null
-          fecha?: string | null
-          id?: never
-        }
-        Relationships: [
-          {
-            foreignKeyName: "evaluaciones_empleado_id_fkey"
-            columns: ["empleado_id"]
-            isOneToOne: false
-            referencedRelation: "empleados"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      n8n_chat_histories: {
-        Row: {
-          id: number
-          message: Json
-          session_id: string
-        }
-        Insert: {
-          id?: number
-          message: Json
-          session_id: string
-        }
-        Update: {
-          id?: number
-          message?: Json
-          session_id?: string
-        }
-        Relationships: []
-      }
-      planilla: {
-        Row: {
-          deducciones: number | null
-          empleado_id: number | null
           fecha_pago: string | null
           id: number
-          salario_bruto: number | null
-          salario_neto: number | null
+          id_usuario: string | null
+          metodo_pago: string | null
+          monto: number
         }
         Insert: {
-          deducciones?: number | null
-          empleado_id?: number | null
           fecha_pago?: string | null
-          id?: never
-          salario_bruto?: number | null
-          salario_neto?: number | null
+          id?: number
+          id_usuario?: string | null
+          metodo_pago?: string | null
+          monto: number
         }
         Update: {
-          deducciones?: number | null
-          empleado_id?: number | null
           fecha_pago?: string | null
-          id?: never
-          salario_bruto?: number | null
-          salario_neto?: number | null
+          id?: number
+          id_usuario?: string | null
+          metodo_pago?: string | null
+          monto?: number
         }
         Relationships: [
           {
-            foreignKeyName: "planilla_empleado_id_fkey"
-            columns: ["empleado_id"]
+            foreignKeyName: "historial_pagos_id_usuario_fkey"
+            columns: ["id_usuario"]
             isOneToOne: false
-            referencedRelation: "empleados"
+            referencedRelation: "usuarios"
             referencedColumns: ["id"]
           },
         ]
+      }
+      historial_viajes: {
+        Row: {
+          comentarios: string | null
+          fecha_viaje: string | null
+          id: number
+          id_usuario: string | null
+          lugar_id: number | null
+        }
+        Insert: {
+          comentarios?: string | null
+          fecha_viaje?: string | null
+          id?: number
+          id_usuario?: string | null
+          lugar_id?: number | null
+        }
+        Update: {
+          comentarios?: string | null
+          fecha_viaje?: string | null
+          id?: number
+          id_usuario?: string | null
+          lugar_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "historial_viajes_id_usuario_fkey"
+            columns: ["id_usuario"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "historial_viajes_lugar_id_fkey"
+            columns: ["lugar_id"]
+            isOneToOne: false
+            referencedRelation: "lugares"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lugar: {
+        Row: {
+          creado: string
+          descripcion: string | null
+          id: number
+          nombre: string | null
+        }
+        Insert: {
+          creado?: string
+          descripcion?: string | null
+          id?: number
+          nombre?: string | null
+        }
+        Update: {
+          creado?: string
+          descripcion?: string | null
+          id?: number
+          nombre?: string | null
+        }
+        Relationships: []
+      }
+      lugares: {
+        Row: {
+          actualizado_en: string | null
+          creado_en: string | null
+          descripcion: string | null
+          id: number
+          latitud: number
+          longitud: number
+          nombre: string
+        }
+        Insert: {
+          actualizado_en?: string | null
+          creado_en?: string | null
+          descripcion?: string | null
+          id?: never
+          latitud: number
+          longitud: number
+          nombre: string
+        }
+        Update: {
+          actualizado_en?: string | null
+          creado_en?: string | null
+          descripcion?: string | null
+          id?: never
+          latitud?: number
+          longitud?: number
+          nombre?: string
+        }
+        Relationships: []
       }
       recomendaciones: {
         Row: {
-          empresa_id: number | null
-          fecha: string | null
+          creado_en: string | null
           id: number
-          recomendacion: string | null
-          tipo: string | null
+          id_usuario: string | null
+          lugar_id: number | null
+          puntuacion: number | null
         }
         Insert: {
-          empresa_id?: number | null
-          fecha?: string | null
+          creado_en?: string | null
           id?: number
-          recomendacion?: string | null
-          tipo?: string | null
+          id_usuario?: string | null
+          lugar_id?: number | null
+          puntuacion?: number | null
         }
         Update: {
-          empresa_id?: number | null
-          fecha?: string | null
+          creado_en?: string | null
           id?: number
-          recomendacion?: string | null
-          tipo?: string | null
+          id_usuario?: string | null
+          lugar_id?: number | null
+          puntuacion?: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "recomendaciones_estrategicas_empresa_id_fkey"
-            columns: ["empresa_id"]
+            foreignKeyName: "recomendaciones_id_usuario_fkey"
+            columns: ["id_usuario"]
             isOneToOne: false
-            referencedRelation: "empresas"
+            referencedRelation: "usuarios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "recomendaciones_lugar_id_fkey"
+            columns: ["lugar_id"]
+            isOneToOne: false
+            referencedRelation: "lugares"
             referencedColumns: ["id"]
           },
         ]
       }
-      reportes_financieros: {
+      rol: {
         Row: {
-          contenido: string | null
-          empresa_id: number | null
-          fecha_generacion: string | null
+          created_at: string
           id: number
-          tipo_reporte: string | null
+          nombre: string | null
         }
         Insert: {
-          contenido?: string | null
-          empresa_id?: number | null
-          fecha_generacion?: string | null
-          id?: never
-          tipo_reporte?: string | null
+          created_at?: string
+          id?: number
+          nombre?: string | null
         }
         Update: {
-          contenido?: string | null
-          empresa_id?: number | null
-          fecha_generacion?: string | null
-          id?: never
-          tipo_reporte?: string | null
+          created_at?: string
+          id?: number
+          nombre?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "reportes_financieros_empresa_id_fkey"
-            columns: ["empresa_id"]
-            isOneToOne: false
-            referencedRelation: "empresas"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
-      transacciones: {
+      suscripciones: {
         Row: {
-          categoria: string | null
-          descripcion: string | null
-          empresa_id: number | null
-          fecha: string | null
+          activo: boolean | null
+          fecha_fin: string | null
+          fecha_inicio: string | null
           id: number
-          monto: number | null
-          tipo: string | null
+          id_usuario: string | null
+          plan: string
         }
         Insert: {
-          categoria?: string | null
-          descripcion?: string | null
-          empresa_id?: number | null
-          fecha?: string | null
-          id?: never
-          monto?: number | null
-          tipo?: string | null
+          activo?: boolean | null
+          fecha_fin?: string | null
+          fecha_inicio?: string | null
+          id?: number
+          id_usuario?: string | null
+          plan: string
         }
         Update: {
-          categoria?: string | null
-          descripcion?: string | null
-          empresa_id?: number | null
-          fecha?: string | null
-          id?: never
-          monto?: number | null
-          tipo?: string | null
+          activo?: boolean | null
+          fecha_fin?: string | null
+          fecha_inicio?: string | null
+          id?: number
+          id_usuario?: string | null
+          plan?: string
         }
         Relationships: [
           {
-            foreignKeyName: "transacciones_empresa_id_fkey"
-            columns: ["empresa_id"]
+            foreignKeyName: "suscripciones_id_usuario_fkey"
+            columns: ["id_usuario"]
             isOneToOne: false
-            referencedRelation: "empresas"
+            referencedRelation: "usuarios"
             referencedColumns: ["id"]
           },
         ]
       }
       usuarios: {
         Row: {
-          email: string | null
-          empresa_id: number | null
-          fecha_registro: string | null
-          id: number
+          apellido: string | null
+          avatar_url: string | null
+          correo: string
+          created_at: string
+          genero: string | null
+          id: string
           nombre: string | null
-          rol: string | null
+          telefono: string | null
         }
         Insert: {
-          email?: string | null
-          empresa_id?: number | null
-          fecha_registro?: string | null
-          id?: never
+          apellido?: string | null
+          avatar_url?: string | null
+          correo: string
+          created_at?: string
+          genero?: string | null
+          id?: string
           nombre?: string | null
-          rol?: string | null
+          telefono?: string | null
         }
         Update: {
-          email?: string | null
-          empresa_id?: number | null
-          fecha_registro?: string | null
-          id?: never
+          apellido?: string | null
+          avatar_url?: string | null
+          correo?: string
+          created_at?: string
+          genero?: string | null
+          id?: string
           nombre?: string | null
-          rol?: string | null
+          telefono?: string | null
+        }
+        Relationships: []
+      }
+      usuarioXrol: {
+        Row: {
+          id_rol: number
+          id_usuario: string
+        }
+        Insert: {
+          id_rol: number
+          id_usuario?: string
+        }
+        Update: {
+          id_rol?: number
+          id_usuario?: string
         }
         Relationships: [
           {
-            foreignKeyName: "usuarios_empresa_id_fkey"
-            columns: ["empresa_id"]
+            foreignKeyName: "usuarioXrol_id_rol_fkey"
+            columns: ["id_rol"]
             isOneToOne: false
-            referencedRelation: "empresas"
+            referencedRelation: "rol"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "usuarioXrol_id_usuario_fkey"
+            columns: ["id_usuario"]
+            isOneToOne: false
+            referencedRelation: "usuarios"
             referencedColumns: ["id"]
           },
         ]
@@ -407,117 +497,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      binary_quantize: {
-        Args: { "": string } | { "": unknown }
-        Returns: unknown
-      }
-      get_empresas: {
-        Args: Record<PropertyKey, never>
-        Returns: {
-          fecha_registro: string | null
-          id: number
-          nombre: string | null
-          sector: string | null
-          tipo: string | null
-        }[]
-      }
-      halfvec_avg: {
-        Args: { "": number[] }
-        Returns: unknown
-      }
-      halfvec_out: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      halfvec_send: {
-        Args: { "": unknown }
-        Returns: string
-      }
-      halfvec_typmod_in: {
-        Args: { "": unknown[] }
-        Returns: number
-      }
-      hnsw_bit_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      hnsw_halfvec_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      hnsw_sparsevec_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      hnswhandler: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      ivfflat_bit_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      ivfflat_halfvec_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      ivfflathandler: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      l2_norm: {
-        Args: { "": unknown } | { "": unknown }
-        Returns: number
-      }
-      l2_normalize: {
-        Args: { "": string } | { "": unknown } | { "": unknown }
-        Returns: unknown
-      }
-      match_documents: {
-        Args: { query_embedding: string; match_count?: number; filter?: Json }
-        Returns: {
-          id: number
-          content: string
-          metadata: Json
-          similarity: number
-        }[]
-      }
-      sparsevec_out: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      sparsevec_send: {
-        Args: { "": unknown }
-        Returns: string
-      }
-      sparsevec_typmod_in: {
-        Args: { "": unknown[] }
-        Returns: number
-      }
-      vector_avg: {
-        Args: { "": number[] }
-        Returns: string
-      }
-      vector_dims: {
-        Args: { "": string } | { "": unknown }
-        Returns: number
-      }
-      vector_norm: {
-        Args: { "": string }
-        Returns: number
-      }
-      vector_out: {
-        Args: { "": string }
-        Returns: unknown
-      }
-      vector_send: {
-        Args: { "": string }
-        Returns: string
-      }
-      vector_typmod_in: {
-        Args: { "": unknown[] }
-        Returns: number
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never
@@ -646,7 +626,7 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
-  public: {
+  pearl: {
     Enums: {},
   },
 } as const

@@ -1,6 +1,16 @@
 {
+  "navbar": {
+      "home": "Inicio",
+      "features": "Características",
+      "destinations": "Destinos",
+      "how-it-works": "Cómo Funciona",
+      "testimonials": "Testimonios",
+      "login": "Iniciar Sesión",
+      "start-free": "Comenzar Gratis",
+      "language": "Idioma"
+},
   "Landing": {
-    "title": "Hola Papus!",
+    "title": "Bienvenido",
     "subtitle": "Viajes Únicos con",
     "ai": "Inteligencia Artificial",
     "description": "Descubre destinos extraordinarios adaptados perfectamente a tus gustos, presupuesto y sueños. Nuestro asistente de IA revoluciona la forma de planificar aventuras inolvidables.",

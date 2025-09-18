@@ -17,11 +17,10 @@ export default async function Page({ params }: Props) {
 
     return (
         <div>
-            <h1 className="text-xl font-bold">Welcome to the Chat Page</h1>
             {/* <ChatPage /> */}
             <TourismGenerator />
             {/* <ChatStream /> */}
-            <p className="mt-4 text-gray-600">This page is designed to demonstrate the chat functionality with AI.</p>
+            {/* <p className="mt-4 text-gray-600">This page is designed to demonstrate the chat functionality with AI.</p> */}
         </div>
     );
 }

@@ -56,8 +56,27 @@ import { generateObject } from 'ai';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
+// Guardar los últimos 5 destinos recomendados
+let lastDestinations: string[] = [];
+
+const recommendationSchema = z.object({
+  destinoRecomendado: z.array(z.string()).describe('Nombres específicos de los destinos recomendados'),
+  descripcion: z.string(),
+  actividades: z.array(z.string()),
+  consejosPracticos: z.array(z.string()),
+  mejorEpoca: z.string(),
+  presupuestoEstimado: z.string(),
+  itinerario: z.array(z.object({
+    dia: z.number(),
+    destino: z.string(),
+    actividades: z.array(z.string()),
+    descripcion: z.string(),
+    imagenesUrls: z.array(z.string()).optional()
+  })).optional()
+});
+
 // Función para obtener imágenes de Unsplash
-async function fetchUnsplashImages(destinoRecomendado: string, tipoDestino: string) {
+async function fetchUnsplashImages(destinoRecomendado: string[], tipoDestino: string) {
   const UNSPLASH_ACCESS_KEY = process.env.UNSPLASH_ACCESS_KEY;
   
   if (!UNSPLASH_ACCESS_KEY) {
@@ -161,41 +180,88 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const prompt = `Genera una recomendación de viaje personalizada con estas preferencias:
+    const isMultiDayTrip = selectedTags.duration === '2 días' || 
+                          selectedTags.duration === '3 días' || 
+                          selectedTags.duration === '4 días' || 
+                          selectedTags.duration === '5 días' || 
+                          selectedTags.duration === '1 semana';
+
+    // Crear lista de exclusión
+    const excluded = lastDestinations.length > 0 ? lastDestinations.join(', ') : 'ninguno';
+
+    // Prompt dinámico con restricción de los últimos 5 destinos
+    let prompt = `Genera una recomendación de viaje personalizada con estas preferencias:
       - Tipo de destino: ${selectedTags.destination}
       - Actividades preferidas: ${selectedTags.activities.join(', ')}
       - Duración: ${selectedTags.duration}
       - Presupuesto: ${selectedTags.budget}
       - Tipo de viajero: ${selectedTags.travelers}
+      - País: ${selectedTags.country || 'cualquier país'}
 
-      Proporciona un destino específico y real (nombre de ciudad, región o lugar específico), una descripción detallada, actividades concretas y consejos prácticos. NO incluyas URLs de imágenes, solo información del destino.`;
+      IMPORTANTE:`;
+
+    if (isMultiDayTrip) {
+      prompt += `
+      - Para esta duración, recomienda entre 3 y 5 destinos diferentes que sean relativamente cercanos entre sí.
+      - Los destinos deben formar una ruta lógica y coherente.
+      - Incluye un itinerario detallado por día con actividades específicas para cada destino.
+      - Los destinos deben ser reales, específicos${selectedTags.country ? ` ubicados en ${selectedTags.country}` : ''} y diferentes a los últimos destinos sugeridos: [${excluded}].`;
+    } else {
+      prompt += `
+      - - El destino recomendado debe ser real, específico${selectedTags.country ? ` ubicado en ${selectedTags.country}` : ''} y diferente a los últimos destinos sugeridos: [${excluded}].`;
+    }
+
+    prompt += `
+      - Nunca repitas destinos de esa lista de exclusión.
+      - Proporciona una descripción detallada, actividades concretas y consejos prácticos.
+      - NO incluyas URLs de imágenes, solo información del destino.`;
 
     // Paso 1: Generar recomendación con Google AI
     const { object } = await generateObject({
       model: google('gemini-1.5-flash'),
-      system: 'Eres un experto consultor de viajes. Generas recomendaciones personalizadas, específicas y prácticas para turistas. Recomienda destinos reales y específicos con nombres de lugares concretos.',
-      prompt: prompt,
-      schema: z.object({
-        destinoRecomendado: z.string().describe("Nombre específico del destino recomendado (ciudad, región o lugar)"),
-        descripcion: z.string(),
-        actividades: z.array(z.string()),
-        consejosPracticos: z.array(z.string()),
-        mejorEpoca: z.string(),
-        presupuestoEstimado: z.string()
-      }),
+      system: isMultiDayTrip 
+        ? 'Eres un experto consultor de viajes. Para viajes de múltiples días, creas rutas con 3-5 destinos cercanos entre sí, con itinerarios detallados por día. Proporciona el nombre exacto de cada destino para buscar imágenes. Nunca repites lugares incluidos en una lista de exclusión.'
+        : 'Eres un experto consultor de viajes. Recomiendas destinos reales, específicos y prácticos. Nunca repites lugares incluidos en una lista de exclusión.',
+      prompt,
+      schema: recommendationSchema,
     });
 
-    // Paso 2: Obtener imágenes específicas del destino recomendado usando Unsplash
-    const imagenesUrls = await fetchUnsplashImages(object.destinoRecomendado, selectedTags.destination);
+    // Obtener imágenes
+    let imagenesUrls: string[] = [];
+    let itinerarioConImagenes = object.itinerario;
 
-    // Paso 3: Combinar la recomendación con las imágenes
-    const finalRecommendation = {
-      ...object,
-      imagenesUrls
-    };
+    if (isMultiDayTrip && object.itinerario) {
+      // Para viajes múltiples: obtener imágenes para cada destino del itinerario
+      itinerarioConImagenes = await Promise.all(
+        object.itinerario.map(async (dia) => {
+          const imagenesDia = await fetchUnsplashImages([dia.destino], selectedTags.destination);
+          return { ...dia, imagenesUrls: imagenesDia };
+        })
+      );
+      
+      // Usar las imágenes del primer día como imágenes principales
+      imagenesUrls = itinerarioConImagenes[0]?.imagenesUrls || [];
+    } else {
+      // Para viajes cortos: obtener imágenes normalmente
+      imagenesUrls = await fetchUnsplashImages(object.destinoRecomendado, selectedTags.destination);
+    }
 
-    return NextResponse.json({ recommendation: finalRecommendation });
+    // Guardar en historial
+    object.destinoRecomendado.forEach(destino => {
+      lastDestinations.unshift(destino);
+    });
+    
+    if (lastDestinations.length > 5) {
+      lastDestinations = lastDestinations.slice(0, 5);
+    }
 
+    return NextResponse.json({
+      recommendation: { 
+        ...object, 
+        imagenesUrls,
+        itinerario: itinerarioConImagenes 
+      },
+    });
   } catch (error) {
     console.error('Error generating recommendation:', error);
     return NextResponse.json(

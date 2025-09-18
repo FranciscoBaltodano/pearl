@@ -4,6 +4,7 @@
 // import { Label } from '@/components/ui/label'
 // import { Input } from '@/components/ui/input'
 
+import { AuroraBackground } from "@/components/ui/aurora-background";
 import FormSingIn from "./components/form-singin";
 
 
@@ -21,8 +22,8 @@ export default function LoginPage() {
     //     </Button>
     //   </form>
     // </Card>
-    <>
+    <AuroraBackground>
       <FormSingIn />
-    </>
-  )
+    </AuroraBackground>
+  );
 }
